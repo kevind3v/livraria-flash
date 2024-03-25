@@ -1,0 +1,32 @@
+.header,
+footer {
+  min-height: 70px;
+  border-bottom: 1px solid rgba(85, 85, 85, 0.1);
+  border-top: 1px solid rgba(85, 85, 85, 0.1);
+}
+
+.header .navbar-brand {
+  font-size: 1.6em;
+}
+
+.header .navbar-brand,
+.intro .brand {
+  font-weight: 800;
+}
+
+.header .navbar-nav li a {
+  color: #000;
+  font-weight: 600;
+}
+
+.header .navbar-nav li .nav-link:hover {
+  color: #ffd43b !important;
+}
+
+.header .icons-nav li{
+    margin: 0 8px 0 8px;
+}
+
+.header .icons-nav li i {
+    font-size: 18px;
+}

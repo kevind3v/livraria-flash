@@ -19,6 +19,16 @@
       <artifactId>postgresql</artifactId>
       <version>42.7.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.9.1</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>Ecomerce</finalName>
@@ -41,7 +51,7 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.4.40.v20210413</version>
         <configuration>
-          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
         </configuration>
       </plugin>
     </plugins>
