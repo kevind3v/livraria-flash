@@ -23,7 +23,7 @@ public class UsuarioVH implements IViewHelper {
                 String confirmaSenha = request.getParameter("txtConfirmaSenha");
 
                 usuario.setEmail(email);
-                usuario.setSenha(senha);
+                usuario.setNovaSenha(senha);
                 usuario.setConfirmarSenha(confirmaSenha);
             }  else if(nmOperacao.equals("Consultar")) {
                 usuario = new Usuario();
@@ -33,6 +33,19 @@ public class UsuarioVH implements IViewHelper {
 
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
+            } else if(nmOperacao.equals("Alterar")) {
+                usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+                if(usuario != null){
+                    String senhaAtual = request.getParameter("txtSenhaAtual");
+
+                    String novaSenha = request.getParameter("txtNovaSenha");
+                    String confirmaSenha = request.getParameter("txtConfirmarSenha");
+
+                    usuario.setSenha(senhaAtual);
+                    usuario.setNovaSenha(novaSenha);
+                    usuario.setConfirmarSenha(confirmaSenha);
+                }
             }
         }
 

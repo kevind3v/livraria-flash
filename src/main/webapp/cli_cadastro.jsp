@@ -195,53 +195,7 @@
         $("#txtCPF").mask("000.000.000-00");
         $("#txtDDD").mask("00");
         $("#txtTelefone").mask("90000-0000", { reverse: true });
-        $("#txtCep").mask("00000-000");
         $("#txtDtNasc").mask("00/00/0000");
-        $("#txtCep").on("blur", function() {
-            const load = $("#loading");
-
-            $("#txtLogradouro").val("");
-            $("#txtBairro").val("");
-            $("#txtCidade").val("");
-            $("#txtEstado").val("");
-
-            // Obter o valor do CEP
-            var cep = $(this).val();
-
-            // Remover caracteres não numéricos do CEP
-            cep = cep.replace(/\D/g, '');
-
-            // Verificar se o CEP possui o formato correto
-            if (cep.length === 8) {
-                load.show();
-                // Fazer solicitação AJAX para obter informações do CEP
-                $.ajax({
-                    url: "https://viacep.com.br/ws/" + cep + "/json/",
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        load.hide();
-                        if (typeof data.erro != "undefined") {
-                            Dialog.alert({
-                                message: `Dados dos CEP não encontrado!`,
-                                type: "error"
-                            });
-                            return;
-                        }
-                        $("#txtLogradouro").val(data.logradouro);
-                        $("#txtBairro").val(data.bairro);
-                        $("#txtCidade").val(data.localidade);
-                        $("#txtEstado").val(data.uf);
-                    },
-                    error: function() {
-                        Dialog.alert({
-                            message: `Erro ao buscar informações do CEP`,
-                            type: "error"
-                        });
-                    }
-                });
-            }
-        });
 
         $('#txtDtNasc').datepicker({
             dateFormat: 'dd/mm/yy', // Definir o formato desejado
@@ -249,5 +203,7 @@
             changeYear: true,
             yearRange: '1900:+0' // Definir o intervalo de anos desejado
         });
+
+        setCampoEndereco();
     });
 </script>

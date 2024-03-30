@@ -1,5 +1,6 @@
 package web.viewHelper;
 
+import database.dao.EnderecoDAO;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Endereco;
@@ -13,6 +14,19 @@ public class EnderecoVH implements IViewHelper  {
     public EntidadeDominio getEntidade(HttpServletRequest request) {
         Endereco endereco = null;
 
+        String nmOperacao = request.getParameter("operacao");
+        String idEndereco = request.getParameter("txtEnderecoId");
+
+        if(idEndereco != null && !nmOperacao.equals("Salvar")) {
+            EnderecoDAO enderecoDao = new EnderecoDAO();
+            endereco = new Endereco();
+            endereco.setId(Integer.parseInt(idEndereco));
+
+            endereco = (Endereco) enderecoDao.consultarPorId(endereco);
+            if (!nmOperacao.equals("Alterar")) {
+                return endereco;
+            }
+        }
 
         String nmCep = Mascara.removerMascara(request.getParameter("txtCep"));
         String nmLogradouro = request.getParameter("txtLogradouro");
@@ -24,6 +38,10 @@ public class EnderecoVH implements IViewHelper  {
         String nmIdentificacao = request.getParameter("txtIdentificacao");
 
         endereco = new Endereco(nmLogradouro, nmNumero, nmBairro, nmCep, nmComplemento, nmEstado, nmCidade, nmIdentificacao);
+
+        if(!nmOperacao.equals("Salvar") && idEndereco != null) {
+            endereco.setId(Integer.parseInt(idEndereco));
+        }
 
         Cliente cliente = (Cliente) request.getSession().getAttribute("cliente");
         endereco.setCliente(cliente);

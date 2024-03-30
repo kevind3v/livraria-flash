@@ -9,6 +9,7 @@ public class Usuario extends EntidadeDominio {
 
     private Cliente cliente;
 
+    private String novaSenha;
     private String confirmarSenha;
 
     public Usuario() {}
@@ -57,5 +58,13 @@ public class Usuario extends EntidadeDominio {
 
     public void setConfirmarSenha(String senha) {
         this.confirmarSenha = senha;
+    }
+
+    public String getNovaSenha() {
+        return novaSenha;
+    }
+
+    public void setNovaSenha(String novaSenha) {
+        this.novaSenha = novaSenha;
     }
 }

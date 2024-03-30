@@ -2,12 +2,15 @@ package controller;
 
 import business.IStrategy;
 import business.ValidarDadosCliente;
+import business.ValidarDadosEndereco;
 import business.ValidarDadosUsuario;
 import database.dao.ClienteDAO;
+import database.dao.EnderecoDAO;
 import database.dao.IDAO;
 import database.dao.UsuarioDAO;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
+import database.dominio.Usuario.Endereco;
 import database.dominio.Usuario.Usuario;
 import support.Resultado;
 
@@ -24,12 +27,15 @@ public class Fachada implements IFachada {
     public Fachada() {
         String nmCliente = Cliente.class.getName();
         String nmUsuario = Usuario.class.getName();
+        String nmEndereco = Endereco.class.getName();
 
         daos.put(nmCliente, new ClienteDAO());
         daos.put(nmUsuario, new UsuarioDAO());
+        daos.put(nmEndereco, new EnderecoDAO());
 
         ValidarDadosCliente vCliente = new ValidarDadosCliente();
         ValidarDadosUsuario vUsuario = new ValidarDadosUsuario();
+        ValidarDadosEndereco vEndereco = new ValidarDadosEndereco();
 
         List<IStrategy> rnsCliente = new ArrayList<IStrategy>();
         rnsCliente.add(vCliente);
@@ -38,6 +44,10 @@ public class Fachada implements IFachada {
         List<IStrategy> rnsUsuario = new ArrayList<IStrategy>();
         rnsUsuario.add(vUsuario);
         rns.put(nmUsuario, rnsUsuario);
+
+        List<IStrategy> rnsEndereco = new ArrayList<IStrategy>();
+        rnsEndereco.add(vEndereco);
+        rns.put(nmEndereco, rnsEndereco);
     }
 
     @Override

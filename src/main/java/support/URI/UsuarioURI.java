@@ -8,5 +8,6 @@ public class UsuarioURI {
 
     public final static String LOGIN_URI = "/login";
     public final static String CADASTRO_URI = "/cadastro";
+    public final static String ALTERAR_LOGIN_URI = "/alterar";
 
 }

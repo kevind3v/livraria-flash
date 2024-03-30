@@ -10,11 +10,18 @@ public class ValidarDadosUsuario extends AbstractValidador {
     public String processar(EntidadeDominio entidade) {
         Usuario usuario = (Usuario) entidade;
 
-        if(!usuario.getSenha().equals(usuario.getConfirmarSenha())) {
+        UsuarioDAO usrDao = new UsuarioDAO();
+
+        if(usuario.getId() != 0)
+            if(!usrDao.auth(usuario)) {
+                sb.append("Senha atual incorreta; ");
+            }
+
+        if(!usuario.getNovaSenha().equals(usuario.getConfirmarSenha())) {
             sb.append("Senhas diferentes; ");
         }
 
-        String senha = usuario.getSenha();
+        String senha = usuario.getNovaSenha();
 
         if(senha.matches("^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$")) {
             sb.append("A senha deve conter no minimo: 1 letra maiuscula, 1 letra minuscula, 1 numero e 1 caracter especial, "

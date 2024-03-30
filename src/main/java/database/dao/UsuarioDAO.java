@@ -40,7 +40,7 @@ public class UsuarioDAO extends AbstractDAO {
             pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             pst.setString(1, usuario.getEmail());
-            pst.setString(2, Passwd.gerarHashSenha(usuario.getSenha()));
+            pst.setString(2, Passwd.gerarHashSenha(usuario.getNovaSenha()));
             pst.setBoolean(3, false);
 
             pst.executeUpdate();
@@ -80,7 +80,55 @@ public class UsuarioDAO extends AbstractDAO {
 
     @Override
     public void alterar(EntidadeDominio entidade) {
+        Usuario usuario = (Usuario) entidade;
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
 
+        sql.append("UPDATE usuario SET ");
+        sql.append("usr_password = ? ");
+        sql.append("WHERE (usr_id = ?) ;");
+
+        try {
+
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            conn.setAutoCommit(false);
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setString(1, Passwd.gerarHashSenha(usuario.getNovaSenha()));
+
+            pst.setInt(2, usuario.getId());
+
+            pst.executeUpdate();
+
+            usuario.setNovaSenha(null);
+            usuario.setConfirmarSenha(null);
+
+            conn.commit();
+
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     @Override

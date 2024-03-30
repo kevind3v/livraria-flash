@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {ClienteURI.CADASTRAR_URI, ClienteURI.PERFIL_URI, ClienteURI.PERFIL_ENDERECO_URI, ClienteURI.PERFIL_ALTERAR_URI})
+@WebServlet(urlPatterns = {ClienteURI.CADASTRAR_URI, ClienteURI.PERFIL_SEGURANCA_URI, ClienteURI.PERFIL_CARTOES_URI, ClienteURI.PERFIL_CUPONS_URI, ClienteURI.PERFIL_URI, ClienteURI.PERFIL_ENDERECO_URI, ClienteURI.PERFIL_ALTERAR_URI})
 public class ClienteController extends AbstractController {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,6 +56,9 @@ public class ClienteController extends AbstractController {
                 break;
             case ClienteURI.PERFIL_URI:
             case ClienteURI.PERFIL_ENDERECO_URI:
+            case ClienteURI.PERFIL_SEGURANCA_URI:
+            case ClienteURI.PERFIL_CUPONS_URI:
+            case ClienteURI.PERFIL_CARTOES_URI:
                 cliente = (Cliente) request.getSession().getAttribute("cliente");
 
                 if(cliente == null) {
@@ -74,13 +77,26 @@ public class ClienteController extends AbstractController {
 
                 String path = null;
 
-                if (uri.equals(ClienteURI.PERFIL_URI)) {
-                    path = "cli_perfil";
-                } else {
-                    path = "cli_enderecos";
+                switch (uri) {
+                    case ClienteURI.PERFIL_URI:
+                        path = "cli_perfil";
+                        break;
+                    case ClienteURI.PERFIL_ENDERECO_URI:
+                        path = "cli_enderecos";
+                        break;
+                    case ClienteURI.PERFIL_CARTOES_URI:
+                        path = "cli_cartoes";
+                        break;
+                    case ClienteURI.PERFIL_CUPONS_URI:
+                        path = "cli_cupons";
+                        break;
+                    default:
+                        path = "cli_seguranca";
+                        break;
                 }
 
                 parametros.put("titulo", cliente.getNome() + " | Flash.com.br");
+                parametros.put("nav", path);
                 view.forwardToJSP(request, response, path, parametros);
                 break;
             case ClienteURI.PERFIL_ALTERAR_URI:

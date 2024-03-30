@@ -31,6 +31,7 @@
             <form class="form-container form-ajax p-4 pb-0" action="<%= ClienteURI.PERFIL_ALTERAR_URI %>" method="post">
                 <div class="msg_response"></div>
                 <div class="row">
+                    <div class="col-12 col-lg-2"></div>
                     <div class="col-12 col-lg-8">
                         <div class="form-group">
                             <label for="txtNome" style="font-size: 13px; margin-bottom: 2px">Nome Completo<span class="span-required">*</span></label>
@@ -87,10 +88,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-2"></div>
                 </div>
                 <input type="hidden" name="operacao" value="Alterar">
-                <div class="text-left">
-                    <button type="submit" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-warning text-end" id="BtnSalvar">
+                <div class="text-center">
+                    <button type="submit" style="font-size: 16px; font-weight: bold; width: 400px;" class="btn btn-lg btn-warning text-end" id="BtnSalvar">
                         Salvar
                     </button>
                 </div>

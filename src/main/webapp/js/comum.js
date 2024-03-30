@@ -35,6 +35,32 @@ const Dialog = {
             });
         }
     },
+    confirm: function (obj) {
+        const alertConfirm = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-warning mr-2",
+                cancelButton: "btn btn-secondary",
+            },
+            buttonsStyling: false,
+        });
+        alertConfirm
+            .fire({
+                title: obj.title ?? "Oopa!",
+                html: obj.message,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: `<b>Sim</b>`,
+                cancelButtonText: "Não",
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    if (typeof obj.callback != 'undefined')
+                        obj.callback();
+                } else if (typeof obj.rollback != 'undefined') {
+                    obj.rollback();
+                }
+            });
+    },
     response: function (obj) {
         let type = "danger";
         let time = 5;
