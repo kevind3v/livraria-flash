@@ -45,7 +45,7 @@
                                             class="fa-solid fa-pen-to-square"></i> Alterar
                                     </button>
                                     <%if (cliente.getEnderecos().size() > 1) {%>
-                                    <button class="btn py-0 px-1" style="font-weight: bold; color: #dc3545"><i
+                                    <button class="btn py-0 px-1" style="font-weight: bold; color: #dc3545" onclick="setExcluirEndereco(<%=endereco.getId()%>)"><i
                                             class="fa-regular fa-trash-can"></i> Excluir
                                     </button>
                                     <%} %>
@@ -213,6 +213,51 @@
                 keyboard: false
             })
         }
+    }
+
+    function setExcluirEndereco(id) {
+        const load = $("#loading");
+
+        Dialog.confirm({
+            type: "warning",
+            message: "Deseja excluir a conta?",
+            callback: () => {
+                load.show();
+                $.ajax({
+                    url: "<%= EnderecoURI.EXCLUIR_URI %>",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        operacao: "Excluir",
+                        txtEnderecoId: id
+                    },
+                    success: function(data) {
+                        load.hide();
+                        if (typeof data.erro != "undefined") {
+                            Dialog.alert({
+                                message: `Não foi possivel excluir endereço!`,
+                                type: "error"
+                            });
+                            return;
+                        }
+
+                        if (typeof data.alert !== "undefined") {
+                            Dialog.alert(data.alert);
+                        }
+
+                        if (typeof data.redirect !== "undefined") {
+                            window.location.href = data.redirect;
+                        }
+                    },
+                    error: function() {
+                        Dialog.alert({
+                            message: `Não foi possivel excluir endereço`,
+                            type: "error"
+                        });
+                    }
+                });
+            }
+        })
     }
 </script>
 <%-- Fim do trecho de código JavaScript --%>

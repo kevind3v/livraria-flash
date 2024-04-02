@@ -6,6 +6,7 @@ import support.URI.ClienteURI;
 import support.URI.EnderecoURI;
 import support.URI.UsuarioURI;
 import web.command.AlterarCommand;
+import web.command.ExcluirCommand;
 import web.command.ICommand;
 import web.command.SalvarCommand;
 import web.viewHelper.EnderecoVH;
@@ -19,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {EnderecoURI.ADICIONAR_URI})
+@WebServlet(urlPatterns = {EnderecoURI.ADICIONAR_URI, EnderecoURI.EXCLUIR_URI})
 public class EnderecoController extends AbstractController {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +29,7 @@ public class EnderecoController extends AbstractController {
 
         switch (uri) {
             case EnderecoURI.ADICIONAR_URI:
+            case EnderecoURI.EXCLUIR_URI:
                 String operacao = request.getParameter("operacao");
                 EnderecoVH endVh = new EnderecoVH();
 
@@ -70,6 +72,23 @@ public class EnderecoController extends AbstractController {
                         alert.setValue("type", "success");
                         alert.setValue("title", "Ebaa!");
                         alert.setValue("message", "Endereço atualizado!");
+                        alert.setValue("redirect", ClienteURI.PERFIL_ENDERECO_URI);
+                        json.setValue("alert", alert);
+                    }
+                } else if(operacao.equals("Excluir")){
+                    cmd = new ExcluirCommand();
+
+                    retorno = (String) cmd.executar(end);
+
+                    if(retorno != null){
+                        json.setValue("error", true);
+                        json.setValue("message", "Nao foi possivel a excluir");
+                    }else {
+                        json.setValue("error", false);
+                        Json alert = new Json();
+                        alert.setValue("type", "success");
+                        alert.setValue("title", "Ebaa!");
+                        alert.setValue("message", "Endereço excluido!");
                         alert.setValue("redirect", ClienteURI.PERFIL_ENDERECO_URI);
                         json.setValue("alert", alert);
                     }

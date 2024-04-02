@@ -103,6 +103,12 @@ public class Fachada implements IFachada {
 
     @Override
     public String excluir(EntidadeDominio entidade) {
+        String nmEntidade = entidade.getClass().getName();
+
+        IDAO dao = daos.get(nmEntidade);
+
+        dao.excluir(entidade);
+
         return null;
     }
 
