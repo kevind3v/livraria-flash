@@ -1,6 +1,7 @@
 package database.dominio.Usuario;
 
 import database.dominio.EntidadeDominio;
+import database.dominio.Venda.CartaoCredito;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Cliente extends EntidadeDominio {
     private Telefone telefone;
 
     private List<Endereco> enderecos;
+    private List<CartaoCredito> cartoes;
 
     public Cliente() {}
 
@@ -42,6 +44,14 @@ public class Cliente extends EntidadeDominio {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public List<CartaoCredito> getCartoes() {
+        return cartoes;
+    }
+
+    public void setCartoes(List<CartaoCredito> cartoes) {
+        this.cartoes = cartoes;
     }
 
     public void setCpf(String cpf) {

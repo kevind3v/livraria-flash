@@ -100,6 +100,7 @@
                     </button>
                 </div>
                 <div class="modal-body pt-0">
+                    <div class="msg_response"></div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="txtCep" style="font-size: 13px; margin-bottom: 2px">Identificação <span
@@ -220,7 +221,7 @@
 
         Dialog.confirm({
             type: "warning",
-            message: "Deseja excluir a conta?",
+            message: "Deseja excluir o endereço?",
             callback: () => {
                 load.show();
                 $.ajax({

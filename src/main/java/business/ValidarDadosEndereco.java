@@ -13,7 +13,7 @@ public class ValidarDadosEndereco extends AbstractValidador{
         StringBuilder msg = new StringBuilder();
 
         if(isNull(endereco.getIdentificacao())) {
-            msg.append("Identificação Endereço obrigatorio; \n");
+            msg.append("Identificação Endereco obrigatorio; \n");
         }
 
         if(isNull(endereco.getCep())) {

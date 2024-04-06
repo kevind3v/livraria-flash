@@ -29,6 +29,16 @@ public class Mascara {
         }
     }
 
+    public static String extrairUltimosQuatroDigitos(String numeroCartao) {
+        // Verifica se o número do cartão possui pelo menos 4 caracteres
+        if (numeroCartao.length() < 4) {
+            return "****";
+        }
+
+        // Retorna os últimos quatro caracteres do número do cartão
+        return numeroCartao.substring(numeroCartao.length() - 4);
+    }
+
     public static String converterData(String data, String formatoEntrada, String formatoSaida)
     {
         if (formatoEntrada == null) {

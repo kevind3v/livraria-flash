@@ -1,17 +1,12 @@
 package controller;
 
-import business.IStrategy;
-import business.ValidarDadosCliente;
-import business.ValidarDadosEndereco;
-import business.ValidarDadosUsuario;
-import database.dao.ClienteDAO;
-import database.dao.EnderecoDAO;
-import database.dao.IDAO;
-import database.dao.UsuarioDAO;
+import business.*;
+import database.dao.*;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Endereco;
 import database.dominio.Usuario.Usuario;
+import database.dominio.Venda.CartaoCredito;
 import support.Resultado;
 
 import java.util.ArrayList;
@@ -28,14 +23,19 @@ public class Fachada implements IFachada {
         String nmCliente = Cliente.class.getName();
         String nmUsuario = Usuario.class.getName();
         String nmEndereco = Endereco.class.getName();
+        String nmCartao = CartaoCredito.class.getName();
 
         daos.put(nmCliente, new ClienteDAO());
         daos.put(nmUsuario, new UsuarioDAO());
         daos.put(nmEndereco, new EnderecoDAO());
+        daos.put(nmCartao, new CartaoCreditoDAO());
 
         ValidarDadosCliente vCliente = new ValidarDadosCliente();
         ValidarDadosUsuario vUsuario = new ValidarDadosUsuario();
         ValidarDadosEndereco vEndereco = new ValidarDadosEndereco();
+
+        ValidarDadosCartao vCartao = new ValidarDadosCartao();
+        ValidarUnicidadeCartao vUniCartao = new ValidarUnicidadeCartao();
 
         List<IStrategy> rnsCliente = new ArrayList<IStrategy>();
         rnsCliente.add(vCliente);
@@ -48,6 +48,11 @@ public class Fachada implements IFachada {
         List<IStrategy> rnsEndereco = new ArrayList<IStrategy>();
         rnsEndereco.add(vEndereco);
         rns.put(nmEndereco, rnsEndereco);
+
+        List<IStrategy> rnsCartaoCredito = new ArrayList<>();
+        rnsCartaoCredito.add(vCartao);
+        rnsCartaoCredito.add(vUniCartao);
+        rns.put(nmCartao, rnsCartaoCredito);
     }
 
     @Override

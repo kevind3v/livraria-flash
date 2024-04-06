@@ -81,9 +81,41 @@ CREATE TABLE endereco
         ON DELETE NO ACTION
 );
 
+CREATE TABLE bandeira
+(
+    ban_id SERIAL NOT NULL ,
+    ban_descricao character varying(25) NOT NULL,
+    CONSTRAINT pk_ban PRIMARY KEY (ban_id)
+);
+
+
+CREATE TABLE cartoes_credito
+(
+    ctc_id SERIAL NOT NULL ,
+    ctc_nomeidentificacao character varying(255) NOT NULL,
+    ctc_nometitular character varying(255) NOT NULL,
+    ctc_numero character varying(25) NOT NULL,
+    ctc_cvv character varying(5) NOT NULL,
+    ctc_validade character varying(25) NOT NULL,
+    ban_id integer NOT NULL,
+    cli_id integer NOT NULL,
+    CONSTRAINT pk_ctc PRIMARY KEY (ctc_id),
+    CONSTRAINT fk_ctc_ban FOREIGN KEY (ban_id)
+        REFERENCES bandeira (ban_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_ctc_cli FOREIGN KEY (cli_id)
+        REFERENCES cliente (cli_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
 INSERT INTO tipo_telefone (tpt_descricao) VALUES ('fixo');
 INSERT INTO tipo_telefone (tpt_descricao) VALUES ('celular');
 
 INSERT INTO genero (gen_descricao) VALUES ('masculino');
 INSERT INTO genero (gen_descricao) VALUES ('feminino');
 INSERT INTO genero (gen_descricao) VALUES ('nao binario');
+
+INSERT INTO bandeira  (ban_descricao) VALUES ('Visa');
+INSERT INTO bandeira (ban_descricao) VALUES ('Mastercard');

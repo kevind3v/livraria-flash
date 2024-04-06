@@ -3,6 +3,7 @@ package database.dao;
 import database.Connect;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.*;
+import database.dominio.Venda.CartaoCredito;
 import support.Mascara;
 
 import java.sql.*;
@@ -223,6 +224,12 @@ public class ClienteDAO extends AbstractDAO {
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("usr_id"));
                 cliente.setUsuario((Usuario) usrDao.consultarPorId(usuario));
+
+                CartaoCreditoDAO cardDao = new CartaoCreditoDAO(conn);
+                List<CartaoCredito> cartoes = new ArrayList<>();
+                for(EntidadeDominio ent : cardDao.consultar(cliente))
+                    cartoes.add((CartaoCredito) ent);
+                cliente.setCartoes(cartoes);
             }
 
             return cliente;
@@ -351,6 +358,12 @@ public class ClienteDAO extends AbstractDAO {
                 for(EntidadeDominio entidade : endDao.consultar(cliente))
                     enderecos.add((Endereco) entidade);
                 cliente.setEnderecos(enderecos);
+
+                CartaoCreditoDAO cardDao = new CartaoCreditoDAO(conn);
+                List<CartaoCredito> cartoes = new ArrayList<>();
+                for(EntidadeDominio entidade : cardDao.consultar(cliente))
+                    cartoes.add((CartaoCredito) entidade);
+                cliente.setCartoes(cartoes);
 
                 cliente.setUsuario(user);
 
