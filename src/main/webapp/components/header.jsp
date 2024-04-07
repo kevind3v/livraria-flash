@@ -1,6 +1,9 @@
 <%@ page import="database.dominio.Usuario.Usuario" %>
 <%@ page import="support.URI.UsuarioURI" %>
 <%@ page import="support.URI.ClienteURI" %>
+<%@ page import="support.URI.CarrinhoURI" %>
+<%@ page import="database.dominio.Venda.Carrinho" %>
+<%@ page import="support.URI.EstoqueURI" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
@@ -13,21 +16,19 @@
         transition: color 0.3s;
     }
 
-    .search-container {
-        width: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 20px !important;
-        border: 1.5px solid #ffd43b;
+    a.icon-cart {
+        position: relative;
     }
-    .search-input {
-        border-radius: 20px !important;
-        font-size: 16px;
-        width: 300px;
-        outline: none!important;
-        box-shadow: none!important;
-        padding-left: 0;
+
+    a.icon-cart::before {
+        content: ""; /* Caractere Unicode do ícone de carrinho de compras */
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        right: 5px;
+        top: 5px;
+        border-radius: 50%;
+        background: #dc3545;
     }
 </style>
 
@@ -40,7 +41,7 @@
         </a>
         <ul class="navbar-nav mr-auto icons-nav">
             <li class="nav-item">
-                <a href="<%= UsuarioURI.CLIENTE_HOME_URI %>" class="nav-link">Estante de Livros</a>
+                <a href="<%= EstoqueURI.LISTA_URI %>" class="nav-link">Estante de Livros</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">Meus Pedidos</a>
@@ -55,8 +56,12 @@
                             <a href="<%= UsuarioURI.ADMIN_INDEX_URI %>" class="btn btn-yellow" type="submit">Dashboard</a>
                         </li>
                     <%} else {%>
+                <%
+                    Carrinho carrinho2 = (Carrinho) request.getSession().getAttribute("carrinho");
+                %>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-shopping-cart menu-icon"></i></a>
+                            <a class="nav-link <%= (carrinho2 != null && !carrinho2.getItens().isEmpty()) ? "icon-cart" : "" %>" href="<%= CarrinhoURI.VISUALIZAR_ITENS %>"><i class="fas fa-shopping-cart menu-icon"></i></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">

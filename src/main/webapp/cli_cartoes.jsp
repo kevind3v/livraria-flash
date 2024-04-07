@@ -44,14 +44,14 @@
     }
 
     .credit-chip {
-        width: 55px;
-        height: 35px;
+        width: 50px;
+        height: 30px;
         background: url('../img/chip.png') no-repeat center;
         background-size: contain;
         position: absolute;
         border-radius: 10px;
         top: 75px;
-        left: 25px;
+        left: 20px;
     }
 
     .credit-number {
@@ -162,7 +162,7 @@
      aria-labelledby="formCartaoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form class="form-container form-ajax p-2 pb-0" action="<%= PagamentoURI.ADICIONAR_URI %>" method="post">
+            <form class="form-container form-ajax p-2 pb-0" action="<%= PagamentoURI.ADICIONAR_CARTAO_URI %>" method="post">
                 <div class="modal-header" style="border: none">
                     <h5 class="modal-title" id="formCartaoLabel" style="font-weight: bold">Cadastro Cartão</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

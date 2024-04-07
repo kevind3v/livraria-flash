@@ -18,7 +18,7 @@
             <button type="submit" class="nav-link ${parametros.nav == "cli_seguranca" ? 'active' : ''}" name="operacao" value="Consultar">Dados Login</button>
         </form>
         <form action="<%= ClienteURI.PERFIL_CUPONS_URI %>" method="post">
-            <button type="submit" class="nav-link ${parametros.nav == "cli_cupons" ? 'active' : ''}" name="operacao" value="Consultar">Cupons</button>
+            <button type="submit" disabled class="nav-link ${parametros.nav == "cli_cupons" ? 'active' : ''}" name="operacao" value="Consultar">Cupons</button>
         </form>
     </div>
 </nav>

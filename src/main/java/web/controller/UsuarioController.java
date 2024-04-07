@@ -2,11 +2,15 @@ package web.controller;
 
 import database.dao.UsuarioDAO;
 import database.dominio.Usuario.Usuario;
+import database.dominio.Venda.Estoque;
+import database.dominio.Venda.ItemEstoque;
 import support.Json;
 import support.URI.ClienteURI;
 import support.URI.UsuarioURI;
 import web.command.AlterarCommand;
+import web.command.ConsultarCommand;
 import web.command.ICommand;
+import web.viewHelper.EstoqueVH;
 import web.viewHelper.UsuarioVH;
 
 import javax.servlet.ServletException;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {UsuarioURI.CLIENTE_HOME_URI, UsuarioURI.ALTERAR_LOGIN_URI, UsuarioURI.LOGIN_URI, UsuarioURI.CADASTRO_URI, UsuarioURI.AUTENTICAR_URI, UsuarioURI.ADMIN_INDEX_URI})
@@ -27,6 +32,7 @@ public class UsuarioController extends AbstractController {
 
         UsuarioVH usuarioVh = new UsuarioVH();
         Usuario usuario = null;
+        ICommand cmd = null;
 
         switch (uri) {
             case UsuarioURI.LOGIN_URI:
@@ -44,7 +50,7 @@ public class UsuarioController extends AbstractController {
             case UsuarioURI.ALTERAR_LOGIN_URI:
                 usuario = (Usuario) usuarioVh.getEntidade(request);
 
-                ICommand cmd = new AlterarCommand();
+                cmd = new AlterarCommand();
                 String retorno = (String) cmd.executar(usuario);
 
                 Json j = new Json();
@@ -96,6 +102,19 @@ public class UsuarioController extends AbstractController {
                 view.forwardToJSP(request, response, "adm_home", parametros);
                 break;
             case UsuarioURI.CLIENTE_HOME_URI:
+                EstoqueVH estoqueVh = new EstoqueVH();
+                request.setAttribute("ConsultaLimit", true);
+                Estoque estoque = (Estoque) estoqueVh.getEntidade(request);
+
+                cmd = new ConsultarCommand();
+
+                @SuppressWarnings("unchecked")
+                List<ItemEstoque> itens = (List<ItemEstoque>) cmd.executar(estoque);
+
+                estoque.setItens(itens);
+
+                estoqueVh.setEntidade(response, request, estoque);
+
                 parametros.put("titulo", "Flash.com.br | Sua roupa aqui");
                 view.forwardToJSP(request, response, "cli_home", parametros);
                 break;

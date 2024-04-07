@@ -54,7 +54,7 @@ public class EnderecoController extends AbstractController {
                         Json alert = new Json();
                         alert.setValue("type", "success");
                         alert.setValue("title", "Ebaa!");
-                        alert.setValue("message", "Endereço cadastrado!");
+                        alert.setValue("message", "Endereco cadastrado!");
                         alert.setValue("redirect", ClienteURI.PERFIL_ENDERECO_URI);
                         json.setValue("alert", alert);
                     }
@@ -71,7 +71,7 @@ public class EnderecoController extends AbstractController {
                         Json alert = new Json();
                         alert.setValue("type", "success");
                         alert.setValue("title", "Ebaa!");
-                        alert.setValue("message", "Endereço atualizado!");
+                        alert.setValue("message", "Endereco atualizado!");
                         alert.setValue("redirect", ClienteURI.PERFIL_ENDERECO_URI);
                         json.setValue("alert", alert);
                     }
@@ -88,7 +88,7 @@ public class EnderecoController extends AbstractController {
                         Json alert = new Json();
                         alert.setValue("type", "success");
                         alert.setValue("title", "Ebaa!");
-                        alert.setValue("message", "Endereço excluido!");
+                        alert.setValue("message", "Endereco excluido!");
                         alert.setValue("redirect", ClienteURI.PERFIL_ENDERECO_URI);
                         json.setValue("alert", alert);
                     }

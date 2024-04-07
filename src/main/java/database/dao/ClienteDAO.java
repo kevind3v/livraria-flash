@@ -3,8 +3,12 @@ package database.dao;
 import database.Connect;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.*;
+import database.dominio.Venda.Carrinho;
 import database.dominio.Venda.CartaoCredito;
+import database.dominio.Venda.ItemCarrinho;
 import support.Mascara;
+import web.command.ConsultarCommand;
+import web.command.ICommand;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,6 +77,8 @@ public class ClienteDAO extends AbstractDAO {
             EnderecoDAO enderecoDao = new EnderecoDAO(conn);
             enderecoDao.salvar(end);
 
+            criarCarrinho(cliente);
+
             conn.commit();
 
         } catch (Exception e) {
@@ -93,6 +99,104 @@ public class ClienteDAO extends AbstractDAO {
             }
 
         }
+    }
+
+    private void criarCarrinho(Cliente cliente) {
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("INSERT INTO carrinhos ");
+        sql.append("(cli_id) ");
+        sql.append("VALUES (?)");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            conn.setAutoCommit(false);
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, cliente.getId());
+
+            pst.executeUpdate();
+
+            conn.commit();
+
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+    public Carrinho consultarCarrinho(Cliente cliente) {
+        Carrinho carrinho;
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM carrinhos ");
+        sql.append("WHERE cli_id = ?;");
+
+        try {
+
+            conn = Connect.getConnectionPostgres();
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, cliente.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+                carrinho = new Carrinho();
+
+                carrinho.setId(rs.getInt("crr_id"));
+
+                ICommand cmd = new ConsultarCommand();
+
+
+                @SuppressWarnings("unchecked")
+                List<ItemCarrinho> itens = (List<ItemCarrinho>) cmd.executar(carrinho);
+
+                carrinho.setItens(itens);
+
+                return carrinho;
+            }
+
+            return null;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally{
+
+            try {
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return null;
     }
 
     @Override

@@ -6,7 +6,7 @@ import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Endereco;
 import database.dominio.Usuario.Usuario;
-import database.dominio.Venda.CartaoCredito;
+import database.dominio.Venda.*;
 import support.Resultado;
 
 import java.util.ArrayList;
@@ -24,11 +24,19 @@ public class Fachada implements IFachada {
         String nmUsuario = Usuario.class.getName();
         String nmEndereco = Endereco.class.getName();
         String nmCartao = CartaoCredito.class.getName();
+        String nmItemEstoque = ItemEstoque.class.getName();
+        String nmItemCarrinho = ItemCarrinho.class.getName();
+        String nmCarrinho = Carrinho.class.getName();
+        String nmEstoque = Estoque.class.getName();
 
         daos.put(nmCliente, new ClienteDAO());
         daos.put(nmUsuario, new UsuarioDAO());
         daos.put(nmEndereco, new EnderecoDAO());
         daos.put(nmCartao, new CartaoCreditoDAO());
+        daos.put(nmEstoque, new EstoqueDAO());
+        daos.put(nmItemEstoque, new ItemEstoqueDAO());
+        daos.put(nmCarrinho, new ItemCarrinhoDAO());
+        daos.put(nmItemCarrinho, new ItemCarrinhoDAO());
 
         ValidarDadosCliente vCliente = new ValidarDadosCliente();
         ValidarDadosUsuario vUsuario = new ValidarDadosUsuario();
@@ -53,6 +61,16 @@ public class Fachada implements IFachada {
         rnsCartaoCredito.add(vCartao);
         rnsCartaoCredito.add(vUniCartao);
         rns.put(nmCartao, rnsCartaoCredito);
+
+        ValidarDadosDeEstoque vDadosEstoque = new ValidarDadosDeEstoque();
+        List<IStrategy> rnsItemEstoque = new ArrayList<>();
+        rnsItemEstoque.add(vDadosEstoque);
+        rns.put(nmItemEstoque, rnsItemEstoque);
+
+        ValidarDisponibilidadeEstoque vEstoque = new ValidarDisponibilidadeEstoque();
+        List<IStrategy> rnsItemCarrinho = new ArrayList<>();
+        rnsItemCarrinho.add(vEstoque);
+        rns.put(nmItemCarrinho, rnsItemCarrinho);
     }
 
     @Override
@@ -119,7 +137,11 @@ public class Fachada implements IFachada {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        return null;
+        String nmEntidade = entidade.getClass().getName();
+
+        IDAO dao = daos.get(nmEntidade);
+
+        return dao.consultar(entidade);
     }
 
     @Override

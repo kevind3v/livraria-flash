@@ -2,10 +2,14 @@ package database.dao;
 
 import database.Connect;
 import database.dominio.EntidadeDominio;
+import database.dominio.Livro.Livro;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Usuario;
+import database.dominio.Venda.CategoriaStatus;
+import database.dominio.Venda.ItemEstoque;
 import support.Passwd;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 

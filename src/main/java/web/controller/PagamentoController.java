@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {PagamentoURI.ADICIONAR_URI, PagamentoURI.EXCLUIR_CARTAO_URI})
+@WebServlet(urlPatterns = {PagamentoURI.ADICIONAR_CARTAO_URI, PagamentoURI.EXCLUIR_CARTAO_URI})
 public class PagamentoController extends AbstractController {
 
 
@@ -27,7 +27,7 @@ public class PagamentoController extends AbstractController {
         Map<String, Object> parametros = new HashMap<>();
 
         switch (uri) {
-            case PagamentoURI.ADICIONAR_URI:
+            case PagamentoURI.ADICIONAR_CARTAO_URI:
             case PagamentoURI.EXCLUIR_CARTAO_URI:
                 String operacao = request.getParameter("operacao");
 
