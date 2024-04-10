@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <footer style="background: #ffd53b13;">
     <div class="container text-dark">
         <div class="row py-4 d-flex align-items-center">

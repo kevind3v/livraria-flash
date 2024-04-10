@@ -32,21 +32,14 @@ public class EstoqueController extends AbstractController {
                 EstoqueVH estoqueVh = new EstoqueVH();
                 Estoque estoque = (Estoque) estoqueVh.getEntidade(request);
 
-                if(operacao != null) {
-                    if(operacao.equals("Consultar")) {
+                ICommand cmd = new ConsultarCommand();
 
-                        ICommand cmd = new ConsultarCommand();
+                @SuppressWarnings("unchecked")
+                List<ItemEstoque> itens = (List<ItemEstoque>) cmd.executar(estoque);
 
-                        @SuppressWarnings("unchecked")
-                        List<ItemEstoque> itens = (List<ItemEstoque>) cmd.executar(estoque);
+                estoque.setItens(itens);
 
-                        estoque.setItens(itens);
-
-                        estoqueVh.setEntidade(response, request, estoque);
-
-                    }
-
-                }
+                estoqueVh.setEntidade(response, request, estoque);
 
                 parametros.put("titulo", "Estante de Livros | Flash.com.br");
                 view.forwardToJSP(request, response, "cli_estante", parametros);
@@ -55,7 +48,7 @@ public class EstoqueController extends AbstractController {
                 ItemEstoqueVH itemVh = new ItemEstoqueVH();
                 ItemEstoque it = (ItemEstoque) itemVh.getEntidade(request);
 
-                ICommand cmd = new ConsultarPorIdCommand();
+                cmd = new ConsultarPorIdCommand();
                 it = (ItemEstoque) cmd.executar(it);
 
                 itemVh.setEntidade(response, request, it);

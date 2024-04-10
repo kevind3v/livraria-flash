@@ -277,7 +277,7 @@
                     },
                     success: function(data) {
                         load.hide();
-                        if (typeof data.erro != "undefined") {
+                        if (typeof data.error != "undefined" && data.error === true) {
                             Dialog.alert({
                                 message: `Não foi possivel excluir cartão!`,
                                 type: "error"

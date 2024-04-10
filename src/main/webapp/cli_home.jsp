@@ -79,64 +79,6 @@
                 </div>
                 <% } %>
                 <% } %>
-
-
-<%--                <div class="col-sm-12 col-md-6 col-lg-3 mb-4">--%>
-<%--                    <div class="card-product">--%>
-<%--                        <div class="product-tumb">--%>
-<%--                            <img class="" src="./img/livros/produto1-1.png">--%>
-<%--                        </div>--%>
-<%--                        <div class="card-content pt-0">--%>
-<%--                            <h4 style="text-transform: none; font-size: 14px;">Livro Deixe De Ser Pobre - Eduardo Felberg</h4>--%>
-<%--                            <div class="card-price">R$ 32,98</div>--%>
-<%--                            <div class="text-center">--%>
-<%--                                <a href="#" class="btn btn-yellow px-5">Detalhe</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-12 col-md-6 col-lg-3 mb-4">--%>
-<%--                    <div class="card-product">--%>
-<%--                        <div class="product-tumb">--%>
-<%--                            <img class="" src="./img/livros/produto4-1.png">--%>
-<%--                        </div>--%>
-<%--                        <div class="card-content pt-0">--%>
-<%--                            <h4 style="text-transform: none; font-size: 14px;">Nação dopamina Por que o excesso de prazer está...</h4>--%>
-<%--                            <div class="card-price">R$ 42,20</div>--%>
-<%--                            <div class="text-center">--%>
-<%--                                <a href="#" class="btn btn-yellow px-5">Detalhe</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-12 col-md-6 col-lg-3 mb-4">--%>
-<%--                    <div class="card-product">--%>
-<%--                        <div class="product-tumb">--%>
-<%--                            <img class="" src="./img/livros/produto2-1.png">--%>
-<%--                        </div>--%>
-<%--                        <div class="card-content pt-0">--%>
-<%--                            <h4 style="text-transform: none; font-size: 14px;">O Menino Maluquinho &ensp;&ensp;&ensp;&ensp;&ensp;</h4>--%>
-<%--                            <div class="card-price">R$ 20,99</div>--%>
-<%--                            <div class="text-center">--%>
-<%--                                <a href="#" class="btn btn-yellow px-5">Detalhe</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-12 col-md-6 col-lg-3 mb-4">--%>
-<%--                    <div class="card-product">--%>
-<%--                        <div class="product-tumb">--%>
-<%--                            <img class="" src="./img/livros/produto3-1.png">--%>
-<%--                        </div>--%>
-<%--                        <div class="card-content pt-0">--%>
-<%--                            <h4 style="text-transform: none; font-size: 14px;">Imperfeitos &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</h4>--%>
-<%--                            <div class="card-price">R$ 16,99</div>--%>
-<%--                            <div class="text-center">--%>
-<%--                                <a href="#" class="btn btn-yellow px-5">Detalhe</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
             </div>
         </div>
     </section>

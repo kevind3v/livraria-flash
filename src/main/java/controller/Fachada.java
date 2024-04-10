@@ -28,6 +28,7 @@ public class Fachada implements IFachada {
         String nmItemCarrinho = ItemCarrinho.class.getName();
         String nmCarrinho = Carrinho.class.getName();
         String nmEstoque = Estoque.class.getName();
+        String nmEnderecoEntrega = EnderecoEntrega.class.getName();
 
         daos.put(nmCliente, new ClienteDAO());
         daos.put(nmUsuario, new UsuarioDAO());
@@ -37,6 +38,7 @@ public class Fachada implements IFachada {
         daos.put(nmItemEstoque, new ItemEstoqueDAO());
         daos.put(nmCarrinho, new ItemCarrinhoDAO());
         daos.put(nmItemCarrinho, new ItemCarrinhoDAO());
+        daos.put(nmEnderecoEntrega, new EnderecoEntregaDAO());
 
         ValidarDadosCliente vCliente = new ValidarDadosCliente();
         ValidarDadosUsuario vUsuario = new ValidarDadosUsuario();
@@ -71,6 +73,12 @@ public class Fachada implements IFachada {
         List<IStrategy> rnsItemCarrinho = new ArrayList<>();
         rnsItemCarrinho.add(vEstoque);
         rns.put(nmItemCarrinho, rnsItemCarrinho);
+
+        CalcularFreteEntrega cFrete = new CalcularFreteEntrega();
+        List<IStrategy> rnsEnderecoEntrega = new ArrayList<>();
+        rnsEnderecoEntrega.add(vEndereco);
+        rnsEnderecoEntrega.add(cFrete);
+        rns.put(nmEnderecoEntrega, rnsEnderecoEntrega);
     }
 
     @Override

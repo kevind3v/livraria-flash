@@ -69,8 +69,8 @@ public class PagamentoController extends AbstractController {
                         json.setValue("error", false);
                         Json alert = new Json();
                         alert.setValue("type", "success");
-                        alert.setValue("title", "Ebaa!");
-                        alert.setValue("message", "Cartao excluido!");
+                        alert.setValue("title", "Cartao excluido");
+                        alert.setValue("message", "Quebramos o cartao :)");
                         alert.setValue("redirect", ClienteURI.PERFIL_CARTOES_URI);
                         json.setValue("alert", alert);
                     }

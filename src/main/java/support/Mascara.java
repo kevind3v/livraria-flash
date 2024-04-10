@@ -29,6 +29,13 @@ public class Mascara {
         }
     }
 
+    public static String limitarString(String texto, int limite) {
+        if (texto == null || texto.length() <= limite) {
+            return texto;
+        }
+        return texto.substring(0, limite) + "...";
+    }
+
     public static String extrairUltimosQuatroDigitos(String numeroCartao) {
         // Verifica se o número do cartão possui pelo menos 4 caracteres
         if (numeroCartao.length() < 4) {

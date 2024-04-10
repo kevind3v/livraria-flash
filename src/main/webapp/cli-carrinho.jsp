@@ -9,6 +9,7 @@
 <%@ page import="database.dominio.Venda.Carrinho" %>
 <%@ page import="database.dominio.Venda.ItemCarrinho" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="support.URI.EnderecoURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -101,16 +102,16 @@
         </tr>
         </tfoot>
     </table>
-    <%
-        if(carrinho!=null){
-            if(!carrinho.getItens().isEmpty()){
-    %>
+
     <div class="text-right">
-        <button type="submit" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-warning text-end" name="operacao" value="Salvar">
+        <a href="<%= EstoqueURI.LISTA_URI %>" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-b-green text-ednd">
+            Continuar Comprando
+        </a>
+        <a href="<%= EnderecoURI.SELECIONAR_URI %>" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-warning text-end <%if(carrinho.getItens().size() == 0){%>disabled<%}%>" name="operacao" value="Salvar">
             Finalizar Compra
-        </button>
+        </a>
     </div>
-    <%}} %>
+
 </div>
 
 
@@ -180,7 +181,7 @@
                     },
                     success: function(data) {
                         load.hide();
-                        if (typeof data.erro != "undefined") {
+                        if (typeof data.error != "undefined" && data.error === true) {
                             Dialog.alert({
                                 message: `Não foi possivel excluir item!`,
                                 type: "error"

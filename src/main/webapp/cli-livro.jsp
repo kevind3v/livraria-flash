@@ -19,7 +19,9 @@
         <div id="content" class="col-sm-12">
             <div class="row">
                 <div class="col-sm-7">
-                    <img style="width: 100%;" src="../img/livros/<%=livro.getUrlCapa()%>" alt="">
+                    <div class="text-center">
+                        <img style="max-height: 700px;" src="../img/livros/<%=livro.getUrlCapa()%>" alt="">
+                    </div>
                     <div class="description-bloco mt-4">
                         <p style="font-size: 14px; text-align: justify; font-weight: 500;">
                             <%=livro.getSinopse() %>

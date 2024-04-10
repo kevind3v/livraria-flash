@@ -38,8 +38,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h6 class="m-0"
-                                    style="font-weight: 800; font-size: 18px"><%=endereco.getIdentificacao()%>
-                                </h6>
+                                    style="font-weight: 800; font-size: 18px"><%=endereco.getIdentificacao()%></h6>
                                 <div>
                                     <button class="btn py-0 px-1" style="font-weight: bold; color: #007bff" onclick="setModalEndereco(<%=endereco.getId()%>)"><i
                                             class="fa-solid fa-pen-to-square"></i> Alterar
@@ -234,7 +233,7 @@
                     },
                     success: function(data) {
                         load.hide();
-                        if (typeof data.erro != "undefined") {
+                        iif (typeof data.error != "undefined" && data.error === true) {
                             Dialog.alert({
                                 message: `Não foi possivel excluir endereço!`,
                                 type: "error"

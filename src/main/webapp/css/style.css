@@ -19,6 +19,10 @@
   font-size: 2.1rem;
 }
 
+.span-required {
+  color: #dc3545;
+  margin-left: 2px;
+}
 #loading .app-brand-logo {
   animation: rotate 1.5s infinite linear;
 }

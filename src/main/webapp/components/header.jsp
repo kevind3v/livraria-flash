@@ -64,12 +64,12 @@
                             <a class="nav-link <%= (carrinho2 != null && !carrinho2.getItens().isEmpty()) ? "icon-cart" : "" %>" href="<%= CarrinhoURI.VISUALIZAR_ITENS %>"><i class="fas fa-shopping-cart menu-icon"></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link" href="#" role="button" id="dropdownUser" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user menu-icon"></i>
                             </a>
                             <div class="dropdown-menu">
                                 <form action="<%= ClienteURI.PERFIL_URI %>" method="post">
-                                    <button type="submit" class="dropdown-item" name="operacao" value="ConsultarPorId">Sua Conta</button>
+                                    <button type="submit" class="dropdown-item" name="operacao" id="acessarPerfil" value="ConsultarPorId">Sua Conta</button>
                                 </form>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<%= UsuarioURI.LOGIN_URI %>">Sair</a>

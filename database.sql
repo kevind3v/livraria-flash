@@ -144,17 +144,6 @@ CREATE TABLE livros
     CONSTRAINT pk_lvr PRIMARY KEY (lvr_id)
 );
 
-CREATE TABLE carrinhos
-(
-    crr_id SERIAL NOT NULL,
-    cli_id integer NOT NULL,
-    CONSTRAINT pk_crr PRIMARY KEY (crr_id),
-    CONSTRAINT fk_crr_cli FOREIGN KEY (cli_id)
-        REFERENCES cliente (cli_id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
 CREATE TABLE tiposcupons
 (
     tpc_id SERIAL NOT NULL,
@@ -172,7 +161,6 @@ CREATE TABLE status_pedidos
 CREATE TABLE endereco_entregas
 (
     ede_id SERIAL NOT NULL,
-    ede_identificacao character varying(100) NOT NULL,
     ede_logradouro character varying(100)  NOT NULL,
     ede_numero character varying(10)  NOT NULL,
     ede_bairro character varying(50) NOT NULL,
@@ -312,6 +300,17 @@ CREATE TABLE estoque
         ON DELETE NO ACTION
 );
 
+CREATE TABLE carrinhos
+(
+    crr_id SERIAL NOT NULL,
+    cli_id integer NOT NULL,
+    CONSTRAINT pk_crr PRIMARY KEY (crr_id),
+    CONSTRAINT fk_crr_cli FOREIGN KEY (cli_id)
+        REFERENCES cliente (cli_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
 CREATE TABLE itenscarrinhos
 (
     itc_id SERIAL NOT NULL ,
@@ -408,33 +407,49 @@ INSERT INTO genero (gen_descricao) VALUES ('nao binario');
 INSERT INTO bandeira  (ban_descricao) VALUES ('Visa');
 INSERT INTO bandeira (ban_descricao) VALUES ('Mastercard');
 
-INSERT INTO AUTORES (atr_nome) VALUES ('Eduardo Felberg');
-INSERT INTO AUTORES (atr_nome) VALUES ('Ziraldo A. Pinto');
-INSERT INTO AUTORES (atr_nome) VALUES ('Anna Lembke');
-INSERT INTO AUTORES (atr_nome) VALUES ('Christina Lauren');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (1, 'Eduardo Felberg');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (2, 'Ziraldo A. Pinto');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (3, 'Anna Lembke');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (4, 'Christina Lauren');
 
-INSERT INTO LIVROS (lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
-VALUES ('Livro Deixe De Ser Pobre - Eduardo Felberg', 2023, 'Maquinaria Editorial', 1, '9786588370988', 256, 'Eduardo Feldberg sempre foi fascinado pelo modo com que as pessoas lidam e investem o próprio dinheiro. Depois de uma formação em música, ele começou a observar o universo das finanças, mas percebeu que a maioria dos conteúdos tinham a mesma fórmula: um engravatado usando termos complicados, mais confundindo do que ajudando os que o assistiam. E também estava indignado: ‘com o fato de que muita gente boa trabalha demais o tempo todo para, no final das contas, ter uma vida mais lascada que joelho de freira.’ Então, foi criado o ‘Primo Pobre’, canal no YouTube com mais de 1,3 milhão de seguidores, destinado para o ‘povão’, para quem cansou de não entender a própria vida financeira e quer aprender a cuidar das finanças de forma fácil e descomplicada. Porque, afinal, todo brasileiro merece a tranquilidade de pagar as contas do mês, sair para almoçar com a família em um lugar legal, e conseguir investir um pouco do dinheiro.', 23, 15, 1.54, 250, 2, '9786588370988', 'produto1-1.png');
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (1, 'Deixe De Ser Pobre', 2023, 'Maquinaria Editorial', 1, '9786588370988', 256, 'Eduardo Feldberg sempre foi fascinado pelo modo com que as pessoas lidam e investem o próprio dinheiro. Depois de uma formação em música, ele começou a observar o universo das finanças, mas percebeu que a maioria dos conteúdos tinham a mesma fórmula: um engravatado usando termos complicados, mais confundindo do que ajudando os que o assistiam. E também estava indignado: ‘com o fato de que muita gente boa trabalha demais o tempo todo para, no final das contas, ter uma vida mais lascada que joelho de freira.’ Então, foi criado o ‘Primo Pobre’, canal no YouTube com mais de 1,3 milhão de seguidores, destinado para o ‘povão’, para quem cansou de não entender a própria vida financeira e quer aprender a cuidar das finanças de forma fácil e descomplicada. Porque, afinal, todo brasileiro merece a tranquilidade de pagar as contas do mês, sair para almoçar com a família em um lugar legal, e conseguir investir um pouco do dinheiro.', 23, 15, 1.54, 250, 2, '9786588370988', 'produto1-1.jpg');
 
-INSERT INTO LIVROS (lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
-VALUES ('O Menino Maluquinho', 2008, 'Melhoramentos', 1, '9788506055106', 112, 'Um menininho traquinas, diziam. Tinha macaquinhos no sótão, deitava e rolava, fazendo confusão. Um anjinho, um saci? Alegria da casa, liderava a garotada. Namorador, fazia versinhos, compunha canções, inventava brincadeiras. Era sabido, um amigão. “Menino Maluquinho”, diziam sorrindo as pessoas. Não era, não! Só mais tarde descobriram que tinha sido um garotinho muito amado e, por isso mesmo, muito feliz.', 22.8, 15, 0.9, 200, 2, '9786588370988', 'produto2-1.png');
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (2, 'O Menino Maluquinho', 2008, 'Melhoramentos', 1, '9788506055106', 112, 'Um menininho traquinas, diziam. Tinha macaquinhos no sótão, deitava e rolava, fazendo confusão. Um anjinho, um saci? Alegria da casa, liderava a garotada. Namorador, fazia versinhos, compunha canções, inventava brincadeiras. Era sabido, um amigão. “Menino Maluquinho”, diziam sorrindo as pessoas. Não era, não! Só mais tarde descobriram que tinha sido um garotinho muito amado e, por isso mesmo, muito feliz.', 22.8, 15, 0.9, 200, 2, '9786588370988', 'produto2-1.jpg');
+
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (3, 'Nação dopamina', 2022, 'Vestígio', 1, '9786586551716', 256, 'Este livro é sobre prazer. É também sobre sofrimento. Mas mais importante, é um livro que trata de como encontrar o delicado equilíbrio entre os dois, e por que hoje em dia, mais do que nunca, encontrar o equilíbrio é essencial. Estamos vivendo em uma época de excessos, de acesso sem precedentes a estímulos de alta recompensa e alta dopamina: drogas, comida, notícias, jogos, compras, sexo, redes sociais. A variedade e a potência desses estímulos são impressionantes - assim como seu poder adictivo. Nossos telefones celulares oferecem dopamina digital 24 horas por dia, 7 dias por semana, para uma sociedade ao mesmo tempo conectada e alheia do que acontece ao redor. Estamos todos vulneráveis ao consumo excessivo e à compulsão.', 23, 20, 1.3, 180, 2, '9786586551716', 'produto4-1.jpg');
+
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (4, 'Imperfeitos', 2022, 'Faro Editorial', 1, '9786559571284', 256, 'Olive se sente como a gêmea azarada da casa: dos acidentes estranhamente inexplicáveis ao fracasso na vida profissional e amorosa ― nada dá certo para ela. Porém, parece que o jogo vira quando sua alergia a frutos do mar a protege de um desastre, já que todos os convidados da festa de casamento da irmã sofrem com intoxicação alimentar. Na verdade... nem todos. Ethan, o irmão do noivo, também ficou de fora desse pesadelo. Então, a irmã de Olive, sempre muito prática, propõe a eles que aproveitem a viagem de lua-de-mel, que não é reembolsável, para uma ilha do Havaí. Mas há um “pequeno” problema: Olive e Ethan são inimigos mortais. Há um passado entre eles que tornou a convivência impossível. Mas quem vai dizer não para essa viagem? Ainda mais de graça? Nem pensar! A ideia de ambos era ficar bem longe um do outro, mas a situação muda quando uma mentirinha boba vai crescendo e não podem voltar atrás. E dividindo a mesma suíte, entre farpas e sarcasmos, já se pode desconfiar.... onde tem raiva tem fogo? Com diálogos inteligentes e divertidos, dois personagens cativantes, e cenários de tirar o fôlego, Imperfeitos é o livro ideal para rir sem parar e ainda ver uma história de amor nascer no lugar mais improvável.', 23, 16, 4, 300, 2, '9786559571284', 'produto3-1.jpg');
 
 
-INSERT INTO CATEGORIAS (cat_descricao) values('Consumismo');
-INSERT INTO CATEGORIAS (cat_descricao) values('Humor e Entretenimento');
-INSERT INTO CATEGORIAS (cat_descricao) values('Economia');
-INSERT INTO CATEGORIAS (cat_descricao) values('Aventura');
-INSERT INTO CATEGORIAS (cat_descricao) values('Literatura Estrangeira');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(1, 'Consumismo');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(2, 'Humor e Entretenimento');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(3, 'Economia');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(4, 'Aventura');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(5, 'Literatura Estrangeira');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(6, 'Autoajuda');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(7, 'Psicologia');
 
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(1,1);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(2,1);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(3,1);
 
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(5,4);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(6,4);
+
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(4,2);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(5,2);
 
-INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(2,1);
-INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(3,2);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(6,3);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(7,3);
+
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(1,1);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(2,2);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(3,3);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(4,4);
 
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Em estoque');
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Fora de mercado');
@@ -449,9 +464,17 @@ INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Troca Recusada');
 INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Troca Finalizada');
 
 INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
-    1, 25, true, 'Primeira entrada', 1, '29.00', '19.90'
+  1, 25, true, 'Primeira entrada', 1, '29.90', '0'
 )
 
-    INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
-    2, 25, true, 'Primeira entrada', 1, '43.00', '18.90'
-    )
+INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
+  2, 20, true, 'Primeira entrada', 1, '43.10', '0'
+)
+
+INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
+    3, 15, true, 'Primeira entrada', 1, '53.80', '0'
+)
+
+INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
+ 4, 10, true, 'Primeira entrada', 1, '16.99', '0'
+)

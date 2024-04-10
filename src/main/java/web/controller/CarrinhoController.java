@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {CarrinhoURI.ADICIONAR_ITEM, CarrinhoURI.EDITAR_ITEM, CarrinhoURI.VISUALIZAR_ITENS, CarrinhoURI.EXCLUIR_ITEM})
+@WebServlet(urlPatterns = {CarrinhoURI.VISUALIZAR_ITENS, CarrinhoURI.EXCLUIR_ITEM})
 public class CarrinhoController extends AbstractController {
 
     private Carrinho carrinho = null;
@@ -53,8 +53,8 @@ public class CarrinhoController extends AbstractController {
                     json.setValue("error", false);
                     Json alert = new Json();
                     alert.setValue("type", "success");
-                    alert.setValue("title", "Ebaa!");
-                    alert.setValue("message", "Item excluido!");
+                    alert.setValue("title", "Item excluido");
+                    alert.setValue("message", "Devolvemos para estante!");
                     alert.setValue("redirect", CarrinhoURI.VISUALIZAR_ITENS);
                     json.setValue("alert", alert);
                 }

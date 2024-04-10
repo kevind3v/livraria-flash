@@ -43,6 +43,19 @@ public class EstoqueDAO extends AbstractDAO {
 
         if(estoque.getLimit() != null) {
             sql.append(" LIMIT ").append(estoque.getLimit());
+        } else if(!estoque.getParametros().isEmpty()) {
+
+            sql.append("inner join autores_livros on (atl_lvr_id = l.lvr_id) ");
+            sql.append("inner join autores on (atl_atr_id = atr_id) ");
+            sql.append("inner join categorias_livros on (ctl_lvr_id = l.lvr_id) ");
+            sql.append("inner join categorias on (ctl_cat_id = cat_id) ");
+
+            StringBuilder clausulaWhere = new StringBuilder("WHERE ");
+            for(String parametro : estoque.getParametros()) {
+                clausulaWhere.append(parametro).append(" like '%").append(estoque.getValorBusca()).append("%' or ");
+            }
+            clausulaWhere = new StringBuilder(clausulaWhere.substring(0, clausulaWhere.length() - 4));
+            sql.append(clausulaWhere);
         }
 
         try {

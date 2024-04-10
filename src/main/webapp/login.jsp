@@ -5,7 +5,7 @@
     <main class="container d-flex flex-column align-items-center">
 
         <div class="card" style="width: 400px">
-            <form class="form-container form-ajax d-flex flex-column  align-items-center justify-content-center" action="<%= UsuarioURI.AUTENTICAR_URI %>" method="post">
+            <form class="form-container form-ajax d-flex flex-column  align-items-center justify-content-center" id="formLogin" action="<%= UsuarioURI.AUTENTICAR_URI %>" method="post">
                 <a class="navbar-brand brand py-3" href="<%= UsuarioURI.LOGIN_URI %>" style="font-size: 30px;">
                     <i class="fas fa-bolt" style="color: #ffd43b"></i> <span style="font-weight: bold">Flash</span>
                 </a>
@@ -19,10 +19,10 @@
                     <input type="password" class="form-control" required name="txtSenha" id="exampleInputPassword1">
                 </div>
                 <input name="operacao" value="Consultar" type="hidden"/>
-                <button type="submit" style="width: 350px; font-size: 14px; font-weight: bold;" class="btn btn-lg btn-warning mb-4">
+                <button type="submit" id="BtnLogar" style="width: 350px; font-size: 14px; font-weight: bold;" class="btn btn-lg btn-warning mb-4">
                     Entrar
                 </button>
-                <p class="text-center text-muted copyright" style="font-size: 14px">Ainda não possui conta? <a class="nav-link text-warning" style="font-weight: bold" href="<%= UsuarioURI.CADASTRO_URI %>">Faça o cadastro!</a></p>
+                <p class="text-center text-muted copyright" style="font-size: 14px">Ainda não possui conta? <a class="nav-link text-warning" id="linkCadastro" style="font-weight: bold" href="<%= UsuarioURI.CADASTRO_URI %>">Faça o cadastro!</a></p>
             </form>
         </div>
 

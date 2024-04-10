@@ -17,7 +17,7 @@ public class EnderecoVH implements IViewHelper  {
         String nmOperacao = request.getParameter("operacao");
         String idEndereco = request.getParameter("txtEnderecoId");
 
-        if(idEndereco != null && !nmOperacao.equals("Salvar")) {
+        if(idEndereco != null && (!nmOperacao.equals("Salvar")) && (!nmOperacao.equals("SalvarNovo"))) {
             EnderecoDAO enderecoDao = new EnderecoDAO();
             endereco = new Endereco();
             endereco.setId(Integer.parseInt(idEndereco));
@@ -39,7 +39,7 @@ public class EnderecoVH implements IViewHelper  {
 
         endereco = new Endereco(nmLogradouro, nmNumero, nmBairro, nmCep, nmComplemento, nmEstado, nmCidade, nmIdentificacao);
 
-        if(!nmOperacao.equals("Salvar") && idEndereco != null) {
+        if(!nmOperacao.equals("Salvar") && !nmOperacao.equals("SalvarNovo") && idEndereco != null) {
             endereco.setId(Integer.parseInt(idEndereco));
         }
 
