@@ -7,6 +7,7 @@
 <%@ page import="database.dominio.Venda.ItemCarrinho" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="support.URI.EnderecoURI" %>
+<%@ page import="support.URI.PagamentoURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -244,10 +245,10 @@
                 <hr>
                 <div class="summary-item">
                     <span class="summary-label">Total:</span>
-                    <span class="summary-value">R$ <%= (carrinho!=null) ? ((endEntrega != null) ? endEntrega.getFrete().getValor().add(carrinho.getValorTotal()) : carrinho.getValorTotal()) : "0.00" %></span>
+                    <span class="summary-value valor-total">R$ <%= (carrinho!=null) ? ((endEntrega != null) ? endEntrega.getFrete().getValor().add(carrinho.getValorTotal()) : carrinho.getValorTotal()) : "0.00" %></span>
                 </div>
             </div>
-            <a id="bntContinuar" href="c-pagamento.html" class="btn btn-warning btn-block" style="font-weight: 500; font-size: 14px;">Continuar</a>
+            <button id="bntContinuar" disabled class="btn btn-warning btn-block" style="font-weight: 500; font-size: 14px;">Continuar</button>
         </div>
     </div>
 </div>
@@ -346,6 +347,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
         setCampoEndereco();
+
+        <% if (endEntrega != null) { %>
+            $('#bntContinuar').prop('disabled', false);
+        <% } %>
+
+        $('#bntContinuar').on('click', function (e) {
+            if ($('[name="endereco"]:checked').length > 0)
+                window.location.href = '<%= PagamentoURI.SELECIONAR_URI %>';
+            else
+                Dialog.alert({
+                    type: 'warning',
+                    message: 'Selecione o endereço de entrega'
+                })
+        });
         $('[name="endereco"]').on('change', function() {
             const load = $("#loading");
 
@@ -373,9 +388,11 @@
                         window.location.href = data.redirect;
                     }
 
+                    $('#bntContinuar').prop('disabled', false);
                     $('.transportadora').html('Sedex');
                     $('#frete').html("R$ " + data.frete.valor);
-                    $('.tempo-entrega').html(data.frete.prazo + ((data.frete.prazo > 1) ? ' dias uteis' : 'dia util'))
+                    $('.tempo-entrega').html(data.frete.prazo + ((data.frete.prazo > 1) ? ' dias uteis' : 'dia util'));
+                    $('.valor-total').html("R$ " + data.frete.valorTotal);
                 }
             });
         });

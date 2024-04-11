@@ -37,13 +37,19 @@ public class UsuarioController extends AbstractController {
         switch (uri) {
             case UsuarioURI.LOGIN_URI:
                 request.getSession().setAttribute("usuario", null);
+                request.getSession().setAttribute("carrinho", null);
+                request.getSession().setAttribute("endSelecionado", null);
                 request.getSession().setAttribute("cliente", null);
+                request.getSession().setAttribute("pagamento", null);
                 parametros.put("titulo", "Entrar | Flash.com.br");
                 view.forwardToJSP(request, response, "login", parametros);
                 break;
             case UsuarioURI.CADASTRO_URI:
                 request.getSession().setAttribute("usuario", null);
+                request.getSession().setAttribute("carrinho", null);
+                request.getSession().setAttribute("endSelecionado", null);
                 request.getSession().setAttribute("cliente", null);
+                request.getSession().setAttribute("pagamento", null);
                 parametros.put("titulo", "Cadastro | Flash.com.br");
                 view.forwardToJSP(request, response, "cli_cadastro", parametros);
                 break;

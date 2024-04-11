@@ -152,6 +152,64 @@ public class CartaoCreditoDAO extends AbstractDAO {
 
     @Override
     public EntidadeDominio consultarPorId(EntidadeDominio entidade) {
-        return null;
+        CartaoCredito cartao = (CartaoCredito) entidade;
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM cartoes_credito ");
+        sql.append("WHERE ctc_id = ? ;");
+
+        try {
+
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, cartao.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+
+                Bandeira bandeira = null;
+                if(rs.getInt("ban_id") == 1) {
+                    bandeira = Bandeira.VISA;
+                }else if(rs.getInt("ban_id") == 2) {
+                    bandeira = Bandeira.MASTERCARD;
+                }
+
+                cartao = new CartaoCredito(
+                        rs.getString("ctc_nomeidentificacao"),
+                        rs.getString("ctc_validade"),
+                        rs.getString("ctc_nometitular"),
+                        rs.getString("ctc_numero"),
+                        rs.getString("ctc_cvv"),
+                        bandeira
+                );
+
+                cartao.setId(Integer.parseInt(rs.getString("ctc_id")));
+
+            }
+
+            return cartao;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+
+        }   finally{
+            if(controleTransacao)
+                try {
+                    conn.close();
+                    pst.close();
+                }catch(SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 }

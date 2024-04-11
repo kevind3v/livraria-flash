@@ -4,6 +4,7 @@ import database.dao.CartaoCreditoDAO;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Endereco;
+import database.dominio.Venda.CartaoCompra;
 import database.dominio.Venda.CartaoCredito;
 
 import java.util.List;
@@ -13,12 +14,12 @@ public class ValidarUnicidadeCartao extends AbstractValidador {
     public String processar(EntidadeDominio entidade) {
         CartaoCredito cartao = null;
 
-//        if(entidade.getClass().getName().equals(CartaoCompra.class.getName())) {
-//            CartaoCompra cartaoCompra = (CartaoCompra) entidade;
-//            cartao = cartaoCompra.getCartao();
-//        }else {
-//        }
-        cartao = (CartaoCredito) entidade;
+        if(entidade.getClass().getName().equals(CartaoCompra.class.getName())) {
+            CartaoCompra cartaoCompra = (CartaoCompra) entidade;
+            cartao = cartaoCompra.getCartao();
+        }else {
+            cartao = (CartaoCredito) entidade;
+        }
 
         Cliente cliente = cartao.getCliente();
 

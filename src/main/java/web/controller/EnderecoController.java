@@ -1,6 +1,7 @@
 package web.controller;
 
 import database.dominio.Usuario.Endereco;
+import database.dominio.Venda.Carrinho;
 import database.dominio.Venda.EnderecoEntrega;
 import support.Json;
 import support.URI.ClienteURI;
@@ -43,6 +44,8 @@ public class EnderecoController extends AbstractController {
 
                 String retorno = null;
 
+                EnderecoEntrega endEntrega = (EnderecoEntrega) request.getSession().getAttribute("endSelecionado");
+
                 if(operacao.equals("Salvar")) {
                     cmd = new SalvarCommand();
 
@@ -69,6 +72,12 @@ public class EnderecoController extends AbstractController {
                         json.setValue("error", true);
                         json.setValue("message", "Nao foi possivel a realizar alteração. Motivos: <b>" + retorno + "</b>");
                     }else {
+                        if(endEntrega != null) {
+                            if(endEntrega.getEndereco().getId() == end.getId()) {
+                               endEntrega.setEndereco(end);
+                                request.getSession().setAttribute("endSelecionado", endEntrega);
+                            }
+                        }
                         json.setValue("error", false);
                         Json alert = new Json();
                         alert.setValue("type", "success");
@@ -86,6 +95,12 @@ public class EnderecoController extends AbstractController {
                         json.setValue("error", true);
                         json.setValue("message", "Nao foi possivel a excluir");
                     }else {
+
+                        if(endEntrega != null) {
+                            if(endEntrega.getEndereco().getId() == end.getId()) {
+                                request.getSession().setAttribute("endSelecionado", null);
+                            }
+                        }
                         json.setValue("error", false);
                         Json alert = new Json();
                         alert.setValue("type", "success");
@@ -107,14 +122,17 @@ public class EnderecoController extends AbstractController {
 
                     if (operacao.equals("Selecionar")) {
                         endEntVh.setEntidade(response, request, endE);
-                        EnderecoEntrega endEntrega = (EnderecoEntrega) request.getSession().getAttribute("endSelecionado");
+                        endEntrega = (EnderecoEntrega) request.getSession().getAttribute("endSelecionado");
 
                         Json jRetorno = new Json();
                         if (endEntrega != null) {
+                            Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+
                             jRetorno.setValue("error", false);
                             Json frete = new Json();
                             frete.setValue("prazo", endEntrega.getFrete().getPrazo());
                             frete.setValue("valor", String.format("%.2f", endEntrega.getFrete().getValor()));
+                            frete.setValue("valorTotal", String.format("%.2f", endEntrega.getFrete().getValor().add(carrinho.getValorTotal())));
                             jRetorno.setValue("frete", frete);
                         } else {
                             jRetorno.setValue("error", true);
@@ -124,7 +142,7 @@ public class EnderecoController extends AbstractController {
                         return;
                     } else if(operacao.equals("SalvarNovo")) {
                         endEntVh.setEntidade(response, request, endE);
-                        EnderecoEntrega endEntrega = (EnderecoEntrega) request.getSession().getAttribute("endSelecionado");
+                        endEntrega = (EnderecoEntrega) request.getSession().getAttribute("endSelecionado");
 
                         Json jRetorno = new Json();
                         if (endEntrega != null) {
@@ -135,7 +153,7 @@ public class EnderecoController extends AbstractController {
                                     jRetorno.setValue("error", true);
                                 } else {
                                     jRetorno.setValue("error", false);
-                                    jRetorno.setValue("redirect", EnderecoURI.SELECIONAR_URI);
+                                    jRetorno.setValue("aredirect", EnderecoURI.SELECIONAR_URI);
                                 }
                             } else {
                                 jRetorno.setValue("error", false);

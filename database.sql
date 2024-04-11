@@ -478,3 +478,7 @@ INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_
 INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
  4, 10, true, 'Primeira entrada', 1, '16.99', '0'
 )
+
+
+INSERT INTO TIPOSCUPONS (tpc_id, tpc_descricao) values (1, 'Troca');
+INSERT INTO TIPOSCUPONS (tpc_id, tpc_descricao) values (2, 'Promocional');

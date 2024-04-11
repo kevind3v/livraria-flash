@@ -16,7 +16,7 @@ public class CartaoCreditoVH implements IViewHelper {
 
         String operacao = request.getParameter("operacao");
 
-        if(operacao.equals("Salvar") || operacao.equals("Adicionar")){
+        if(operacao.equals("Salvar") || operacao.equals("Adicionar") || operacao.equals("SalvarNovo")){
 
             Cliente cliente = (Cliente) request.getSession().getAttribute("cliente");
 
@@ -39,17 +39,17 @@ public class CartaoCreditoVH implements IViewHelper {
 
             cartao.setCliente(cliente);
 
-        }else if(operacao.equals("Excluir") || operacao.equals("Selecionar")) {
+        }else if(operacao.equals("Excluir") || operacao.equals("Selecionar") || operacao.equals("SelecionarCartao")) {
 
             String txtCartaoId = request.getParameter("txtIdCartao");
 
             cartao = new CartaoCredito();
             cartao.setId(Integer.valueOf(txtCartaoId));
 
-//            if(operacao.equals("Selecionar")) {
-//                CartaoCreditoDAO cardDao = new CartaoCreditoDAO();
-//                cartao = (CartaoCredito) cardDao.consultarPorId(cartao);
-//            }
+            if(operacao.equals("Selecionar") || operacao.equals("SelecionarCartao")) {
+                CartaoCreditoDAO cardDao = new CartaoCreditoDAO();
+                cartao = (CartaoCredito) cardDao.consultarPorId(cartao);
+            }
 
         }
 

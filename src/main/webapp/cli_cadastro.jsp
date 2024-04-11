@@ -158,15 +158,15 @@
 
                     <div class="row py-1">
                         <div class="col-sm-6">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="entrega" name="swtIsEntrega">
-                                <label class="form-check-label" for="entrega">Endereco de entrega.</label>
+                            <div class="custom-control">
+                                <input class="custom-control-input" type="checkbox" role="switch" id="entrega" name="swtIsEntrega">
+                                <label class="custom-control-label" for="entrega">Endereco de entrega.</label>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="cobranca" name="swtIsCobranca">
-                                <label class="form-check-label" for="cobranca">Endereco de cobranca.</label>
+                            <div class="custom-control">
+                                <input class="custom-control-input" type="checkbox" role="switch" id="cobranca" name="swtIsCobranca">
+                                <label class="custom-control-label" for="cobranca">Endereco de cobranca.</label>
                             </div>
                         </div>
                     </div>

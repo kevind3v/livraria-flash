@@ -233,7 +233,7 @@
                     },
                     success: function(data) {
                         load.hide();
-                        iif (typeof data.error != "undefined" && data.error === true) {
+                        if (typeof data.error != "undefined" && data.error === true) {
                             Dialog.alert({
                                 message: `Não foi possivel excluir endereço!`,
                                 type: "error"
