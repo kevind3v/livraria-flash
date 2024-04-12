@@ -349,3 +349,8 @@ header h4 {
 .error-content .error-text {
   margin: 20px 0 0 0;
 } */
+.custom-control-input:checked~.custom-control-label::before {
+  color: #fff;
+  border-color: #fbb72c;
+  background-color: #fbb72c;
+}

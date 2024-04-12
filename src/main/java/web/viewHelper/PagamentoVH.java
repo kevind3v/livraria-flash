@@ -48,7 +48,13 @@ public class PagamentoVH implements IViewHelper {
 
                 cardCompra = new CartaoCompra(cartao, new BigDecimal(valor != null ? valor : "0"));
 
+                String isForm = request.getParameter("txtBandeira");
+
+                if(isForm != null)
+                    cardCompra.setTemporario(false);
+
                 String isSalvar = request.getParameter("swtSalvarCartao");
+
                 if(isSalvar != null)
                     cardCompra.setRegistrar(true);
 
@@ -63,7 +69,7 @@ public class PagamentoVH implements IViewHelper {
 
                 pagamento.setNovoCupom(cupom);
             } else if (operacao.equals("RemoverCupom")) {
-                String idCupom = request.getParameter("idCupom");
+                String idCupom = request.getParameter("6");
                 Cupom cupom = new Cupom();
 
                 cupom.setId(Integer.valueOf(idCupom));

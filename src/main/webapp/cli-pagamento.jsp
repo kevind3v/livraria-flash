@@ -158,12 +158,6 @@
                 }
             </style>
 
-            <%if(pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado()).doubleValue() > 0){ %>
-                <div class="alert alert-info mt-3" role="alert">
-                  Falta R$ <%=pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado())%> para ser alocado nos cartões!
-                </div>
-            <%} %>
-
             <h5 style="font-weight: bold">Cartões Cadastrados</h5>
             <%if( cliente != null && !cliente.getCartoes().isEmpty()){%>
             <%for(CartaoCredito card : cliente.getCartoes()){%>
@@ -317,6 +311,11 @@
                     <span class="summary-label">Total:</span>
                     <span class="summary-value">R$ <%= pagamento.getTotalCompra().subtract(valorDesconto) %></span>
                 </div>
+                <%if(pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado()).doubleValue() > 0){ %>
+                <div class="alert alert-info mt-3" role="alert">
+                    Falta R$ <%=pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado())%> para ser alocado nos cartões!
+                </div>
+                <%} %>
             </div>
             <a id="bntContinuar" href="c-detalhe-pedido.html" class="btn btn-warning btn-block" style="font-weight: 500; font-size: 14px;">Finalizar</a>
         </div>
@@ -380,20 +379,31 @@
                             <input type="text" class="form-control" required name="txtCVV" id="ccv" placeholder="Ex: 999">
                         </div>
                     </div>
+                    <div class="card-body p-0 mb-2">
+                            <label for="valorSelecionado" class="mr-2 mb-0" style="font-size: 16px; font-weight: 600;">Quanto vai pagar nesse cartão</label>
+                            <div class="input-group d-flex align-items-center mb-1 mt-2" style="width: 200px;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic">R$</span>
+                                </div>
+                                <input type="text" id="valorSelecionado" required class="form-control money" name="txtValor" value="10.00">
+                            </div>
+                            <span class="text-danger" style="font-size: 14px"><b>OBS:</b> O valor minimo para cada cartão é R$ 10.00</span>
+                    </div>
                     <div class="form-group pt-1 mb-0">
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" name="swtSalvarCartao" type="checkbox" id="flexSwitchCheckReverse">
-                            <label class="form-check-label" for="flexSwitchCheckReverse">Salvar cartão no perfil</label>
+                        <div class="custom-control">
+                            <input class="custom-control-input" name="swtSalvarCartao" type="checkbox" id="flexSwitchCheckReverse">
+                            <label class="custom-control-label" for="flexSwitchCheckReverse">Salvar cartão no perfil</label>
                         </div>
                     </div>
                 </div>
                 <input type="hidden" name="txtBandeira" id="bandeiraID" value="">
                 <input type="hidden" name="operacao" id="operacaoCartao" value="SalvarNovo">
                 <div class="modal-footer" style="border: none">
-                    <button type="submit" style="font-size: 16px; font-weight: bold;"
+                    <button type="button" style="font-size: 16px; font-weight: bold;"
                             class="btn btn-lg btn-warning text-end" id="BtnSalvar">
                         Salvar
                     </button>
+                    <button type="submit" class="d-none" id="BtnSubmit"></button>
                 </div>
             </form>
         </div>
@@ -406,6 +416,21 @@
             thousands: '',
             decimal: '.',
             precision: 2
+        });
+
+        $('#BtnSalvar').on('click', function () {
+            const money = parseFloat($('#valorSelecionado').val());
+
+            if (isNaN(money) || money < 10) {
+                $('#valorSelecionado').val("10.00");
+                Dialog.alert({
+                    type: "warning",
+                    message: "O valor minimo é de R$ 10.00"
+                })
+                return;
+            }
+
+            $('#BtnSubmit').click();
         });
 
         $('#numeroCartao').mask("0000 0000 0000 0000");
@@ -524,7 +549,8 @@
 
             const money = parseFloat(card.find('#valor' + id).val());
 
-            if (money < 10) {
+            if (isNaN(money) || money < 10) {
+                card.find('#valor' + id).val("10.00");
                 Dialog.alert({
                     type: "warning",
                     message: "O valor minimo é de R$ 10.00"
@@ -575,7 +601,8 @@
 
             const money = parseFloat(card.find('#valorSelecionado' + id).val());
 
-            if (money < 10) {
+            if (isNaN(money) || money < 10) {
+                card.find('#valorSelecionado' + id).val("10.00");
                 Dialog.alert({
                     type: "warning",
                     message: "O valor minimo é de R$ 10.00"

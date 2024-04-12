@@ -153,7 +153,7 @@ public class EnderecoController extends AbstractController {
                                     jRetorno.setValue("error", true);
                                 } else {
                                     jRetorno.setValue("error", false);
-                                    jRetorno.setValue("aredirect", EnderecoURI.SELECIONAR_URI);
+                                    jRetorno.setValue("redirect", EnderecoURI.SELECIONAR_URI);
                                 }
                             } else {
                                 jRetorno.setValue("error", false);
@@ -166,27 +166,7 @@ public class EnderecoController extends AbstractController {
                         return;
                     }
 //
-//                        retorno = (String) cmd.executar(endE);
 //
-//                        if(retorno != null) {
-//
-//                        }
-//                    }
-//                    else if(operacao.equals("Remover")) {
-//                        cmd = new ExcluirCommand();
-//                    }
-
-//                    if (cmd != null) {
-//                        retorno = (String) cmd.executar(endE);
-//                    if(retorno != null) {
-//                        request.setAttribute("mensagemErro", retorno);
-//                    }else {
-//                        if(operacao.equals("Remover"))
-//                            end = null;
-//
-//                        endEntVh.setEntidade(response, request, end);
-//                    }
-//                    }
                     return;
                 }
 
