@@ -69,7 +69,7 @@ public class PagamentoVH implements IViewHelper {
 
                 pagamento.setNovoCupom(cupom);
             } else if (operacao.equals("RemoverCupom")) {
-                String idCupom = request.getParameter("6");
+                String idCupom = request.getParameter("idCupom");
                 Cupom cupom = new Cupom();
 
                 cupom.setId(Integer.valueOf(idCupom));

@@ -97,7 +97,7 @@ public class ValidarPagamento extends AbstractValidador {
             BigDecimal restanteC = restante;
             restanteC = restanteC.subtract(cupom.getValor());
 
-            if (restante.doubleValue() <= 0 || restanteC.doubleValue() <= 0) {
+            if (restante.doubleValue() <= 0 || restanteC.doubleValue() < 0) {
                 sb.append("Nao foi possivel adicionar o cupom. O valor excede o total da compra. ");
             }
 

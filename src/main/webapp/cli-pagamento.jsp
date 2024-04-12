@@ -166,8 +166,8 @@
                     <div class="custom-control d-flex align-items-center">
                         <input type="checkbox" id="card<%=card.getId()%>" name="cartaoCredito<%=card.getId()%>" value="<%=card.getId()%>" class="cartao-credito custom-control-input">
                         <label class="custom-control-label d-flex flex-column card-cartao" for="card<%=card.getId()%>">
-                            <span style="font-weight: 500;">Cartão terminado em <%= Mascara.extrairUltimosQuatroDigitos(card.getNumero()) %></span>
-                            <span class="text-muted" style="font-size: 13px; font-weight: 500;"><%= card.getBandeira() %></span>
+                            <span>Cartão <b><%= card.getNomeIdentificacao() %></b></span>
+                            <span class="text-muted" style="font-size: 14px; font-weight: 500;">Terminado em <%= Mascara.extrairUltimosQuatroDigitos(card.getNumero()) %> - Validade <%= card.getDataValidade() %></span>
                         </label>
                     </div>
                     <div>
@@ -213,8 +213,8 @@
                     <div class="d-flex align-items-center">
                         <a href="#" class="excluir-valor mr-3"><i class="fas fa-trash-alt text-danger" style="font-size: 20px;"></i></a>
                         <label class="d-flex flex-column card-cartao">
-                            <span style="font-weight: 500;">Cartão terminado em <%= Mascara.extrairUltimosQuatroDigitos(card.getCartao().getNumero()) %></span>
-                            <span class="text-muted" style="font-size: 13px; font-weight: 500;"><%= card.getCartao().getBandeira() %></span>
+                            <span>Cartão <b><%= card.getCartao().getNomeIdentificacao() %></b></span>
+                            <span class="text-muted" style="font-size: 14px; font-weight: 500;">Terminado em <%= Mascara.extrairUltimosQuatroDigitos(card.getCartao().getNumero()) %> - Validade <%= card.getCartao().getDataValidade() %></span>
                         </label>
                     </div>
                     <div>
@@ -338,8 +338,8 @@
                     <div class="msg_response"></div>
                     <h6 class="text-muted">Bandeiras Aceitas:</h6>
                     <div class="d-flex mb-3">
-                        <img src="../img/visa.png" style="max-height: 30px;">
-                        <img class="ml-2" src="../img/mastercard.png" style="max-height: 30px;">
+                        <img src="../img/visa-b.png" style="max-height: 30px;">
+                        <img class="ml-2" src="../img/mastercard-b.png" style="max-height: 30px;">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">

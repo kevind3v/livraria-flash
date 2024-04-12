@@ -76,13 +76,13 @@
         font-size: 30px;
         text-align: end;
         font-weight: 800;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     .credit-title i {
         color: #ffd43b;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     }
 
 
@@ -116,7 +116,10 @@
                         <%if (card.getBandeira() == Bandeira.VISA) {%>
                             <div class="cartao-credito visa">
                                 <div class="credit-chip"></div>
-                                <div class="credit-title"><i class="fas fa-bolt"></i></div>
+                                <div class="credit-title d-flex justify-content-between">
+                                    <span style="font-size: 16px; font-weight: 500;">Validade <%= card.getDataValidade() %></span>
+                                    <i class="fas fa-bolt"></i>
+                                </div>
                                 <div class="d-flex flex-column justify-content-end">
                                     <div class="credit-name"><%= card.getTitular() %></div>
                                     <div class="credit-number"><sub style="font-size: 20px">**** **** ****</sub> <span><%= Mascara.extrairUltimosQuatroDigitos(card.getNumero()) %></span></div>
@@ -126,7 +129,10 @@
                         <%} else { %>
                             <div class="cartao-credito mastercard">
                                 <div class="credit-chip"></div>
-                                <div class="credit-title"><i class="fas fa-bolt"></i></div>
+                                <div class="credit-title d-flex justify-content-between">
+                                    <span style="font-size: 16px; font-weight: 500;">Validade <%= card.getDataValidade() %></span>
+                                    <i class="fas fa-bolt"></i>
+                                </div>
                                 <div class="d-flex flex-column justify-content-end">
                                     <div class="credit-name"><%= card.getTitular() %></div>
                                     <div class="credit-number"><sub style="font-size: 20px">**** **** ****</sub> <span><%= Mascara.extrairUltimosQuatroDigitos(card.getNumero()) %></span></div>
@@ -173,8 +179,8 @@
                     <div class="msg_response"></div>
                     <h6 class="text-muted">Bandeiras Aceitas:</h6>
                     <div class="d-flex mb-3">
-                        <img src="../img/visa.png" style="max-height: 30px;">
-                        <img class="ml-2" src="../img/mastercard.png" style="max-height: 30px;">
+                        <img src="../img/visa-b.png" style="max-height: 30px;">
+                        <img class="ml-2" src="../img/mastercard-b.png" style="max-height: 30px;">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
