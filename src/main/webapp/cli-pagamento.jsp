@@ -5,6 +5,7 @@
 <%@ page import="support.URI.PagamentoURI" %>
 <%@ page import="java.util.UUID" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="support.URI.PedidoURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -317,7 +318,7 @@
                 </div>
                 <%} %>
             </div>
-            <a id="bntContinuar" href="c-detalhe-pedido.html" class="btn btn-warning btn-block" style="font-weight: 500; font-size: 14px;">Finalizar</a>
+            <button id="bntContinuar" class="btn btn-warning btn-block" <%if((pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado())).doubleValue()>0){ %>disabled <%} %> style="font-weight: 500; font-size: 14px;">Finalizar Compra</button>
         </div>
     </div>
 </div>
@@ -416,6 +417,41 @@
             thousands: '',
             decimal: '.',
             precision: 2
+        });
+
+        $('#bntContinuar').on('click', function (e) {
+            const load = $("#loading");
+            load.show();
+
+            $.ajax({
+                url: '<%= PedidoURI.FINALIZAR_URI %>',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    operacao: 'Salvar'
+                },
+                success: function (data) {
+                    load.hide();
+                    if (typeof data.error != "undefined" && data.error === true) {
+                        if (typeof data.message != "undefined") {
+                            Dialog.alert({
+                                message: data.message,
+                                type: "error"
+                            });
+                        } else {
+                            Dialog.alert({
+                                message: `Não foi possivel processar pedido!`,
+                                type: "error"
+                            });
+                        }
+                        return;
+                    }
+
+                    if (typeof data.alert !== "undefined") {
+                        Dialog.alert(data.alert);
+                    }
+                }
+            });
         });
 
         $('#BtnSalvar').on('click', function () {

@@ -2,6 +2,7 @@ package web.controller;
 
 import business.ValidarDadosCartao;
 import business.ValidarUnicidadeCartao;
+import database.dominio.Usuario.Cliente;
 import database.dominio.Venda.Carrinho;
 import database.dominio.Venda.CartaoCredito;
 import database.dominio.Venda.EnderecoEntrega;

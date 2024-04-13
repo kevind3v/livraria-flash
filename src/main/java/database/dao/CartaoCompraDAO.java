@@ -2,10 +2,11 @@ package database.dao;
 
 import database.Connect;
 import database.dominio.EntidadeDominio;
-import database.dominio.Venda.CartaoCompra;
-import database.dominio.Venda.Pagamento;
+import database.dominio.Venda.*;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartaoCompraDAO extends AbstractDAO {
@@ -136,6 +137,133 @@ public class CartaoCompraDAO extends AbstractDAO {
 
     @Override
     public EntidadeDominio consultarPorId(EntidadeDominio entidade) {
+        CartaoCompra cartao = (CartaoCompra) entidade;
+        StringBuilder sql = new StringBuilder();
+        PreparedStatement pst = null;
+
+        sql.append("SELECT * FROM cartoescompras ");
+        sql.append("WHERE ccc_id = ? ;");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, cartao.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+
+                Bandeira bandeira = null;
+                if(rs.getInt("ban_id") == 1) {
+                    bandeira = Bandeira.VISA;
+                }else if(rs.getInt("ban_id") == 2) {
+                    bandeira = Bandeira.MASTERCARD;
+                }
+
+                CartaoCredito c = new CartaoCredito(
+                        rs.getString("ccc_validade"),
+                        rs.getString("ccc_nomeTitular"),
+                        rs.getString("ccc_numero"),
+                        rs.getString("ccc_cvv"),
+                        bandeira
+                );
+
+                cartao = new CartaoCompra(
+                        c,
+                        new BigDecimal(rs.getString("ccc_valor"))
+                );
+
+            }
+
+            return cartao;
+
+        }catch (Exception e) {
+
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    public List<CartaoCompra> consultarPorPedido(Pedido pedido){
+        List<CartaoCompra> ccs = new ArrayList<>();
+        StringBuilder sql = new StringBuilder();
+        PreparedStatement pst = null;
+
+        sql.append("SELECT * FROM cartoescompras ");
+        sql.append("WHERE pdd_id = ? ;");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, pedido.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+
+                Bandeira bandeira = null;
+                if(rs.getInt("ban_id") == 1) {
+                    bandeira = Bandeira.VISA;
+                }else if(rs.getInt("ban_id") == 2) {
+                    bandeira = Bandeira.MASTERCARD;
+                }
+
+                CartaoCredito c = new CartaoCredito(
+                        rs.getString("ccc_validade"),
+                        rs.getString("ccc_nomeTitular"),
+                        rs.getString("ccc_numero"),
+                        rs.getString("ccc_cvv"),
+                        bandeira
+                );
+
+                CartaoCompra cc = new CartaoCompra(
+                        c,
+                        new BigDecimal(rs.getString("ccc_valor"))
+                );
+
+                ccs.add(cc);
+            }
+
+            return ccs;
+
+        }catch (Exception e) {
+
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
         return null;
     }
 }

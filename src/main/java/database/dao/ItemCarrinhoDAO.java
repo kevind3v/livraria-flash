@@ -198,6 +198,101 @@ public class ItemCarrinhoDAO extends AbstractDAO {
 
     @Override
     public EntidadeDominio consultarPorId(EntidadeDominio entidade) {
-        return null;
+
+        ItemCarrinho item = (ItemCarrinho) entidade;
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM itensCarrinhos ");
+        sql.append("WHERE itc_id = ?;");
+
+        try {
+
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, item.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+                LivroDAO livroDao = new LivroDAO(conn);
+
+                Livro livro = new Livro();
+                livro.setId(rs.getInt("lvr_id"));
+
+                item = new ItemCarrinho(
+                        (Livro) livroDao.consultarPorId(livro),
+                        rs.getInt("itc_quantidade")
+                );
+                item.setValorVenda(new BigDecimal(rs.getString("itc_valor_venda")));
+
+                item.setId(rs.getInt("itc_id"));
+
+            }
+
+            return item;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void esvaziarCarrinho(Carrinho carrinho) {
+        StringBuilder sql = new StringBuilder();
+        PreparedStatement pst = null;
+
+        sql.append("DELETE FROM itensCarrinhos ");
+        sql.append("WHERE crr_id = ? ;");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            conn.setAutoCommit(false);
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, carrinho.getId());
+
+            pst.executeUpdate();
+
+            conn.commit();
+
+        }  catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package support;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,36 @@ public class Mascara {
 
     public static String converterData(String dataEntrada) {
         return converterData(dataEntrada, "dd/MM/yyyy", "yyyy-MM-dd");
+    }
+
+    public static String formatarIdPedido(int id) {
+        return String.format("%05d", id);
+    }
+
+    public static String dataExtensa(String dataString) {
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSaida = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("pt", "BR"));
+
+        try {
+            Date data = formatoEntrada.parse(dataString);
+            return formatoSaida.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace(); // ou outro tratamento de erro, se necessário
+            return null; // retorna null em caso de exceção
+        }
+    }
+
+    public static String doisDigitoAno(String dataString) {
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSaida = new SimpleDateFormat("yy", new Locale("pt", "BR"));
+
+        try {
+            Date data = formatoEntrada.parse(dataString);
+            return formatoSaida.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace(); // ou outro tratamento de erro, se necessário
+            return null; // retorna null em caso de exceção
+        }
     }
 
     public static String cep(String cep) {

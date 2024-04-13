@@ -267,7 +267,7 @@ public class CupomDAO  extends AbstractDAO {
 
         sql.append("SELECT * ");
         sql.append("FROM cupons ");
-        sql.append("WHERE cpm_pdd_id = ? ");
+        sql.append("WHERE pdd_id = ? ");
 
         try {
 
