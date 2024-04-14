@@ -41,7 +41,11 @@ public class ItemEstoqueDAO extends AbstractDAO {
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT * FROM estoque ");
-        sql.append("WHERE etq_id = ?;");
+
+        if (item.getLivro() != null)
+            sql.append("WHERE lvr_id = ?;");
+        else
+            sql.append("WHERE etq_id = ?;");
 
         try {
 
@@ -53,7 +57,7 @@ public class ItemEstoqueDAO extends AbstractDAO {
 
             pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
-            pst.setInt(1, item.getId());
+            pst.setInt(1, item.getLivro() != null ? item.getLivro().getId() : item.getId());
 
             ResultSet rs = pst.executeQuery();
 

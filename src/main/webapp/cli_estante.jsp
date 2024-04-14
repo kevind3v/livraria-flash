@@ -88,7 +88,7 @@
                             <h4 style="text-transform: none; font-size: 14px;"><%= item.getLivro().getTitulo() %></h4>
                             <div class="card-price">R$ <%=item.getValorVenda()%></div>
                             <div class="text-center">
-                                <a href="<%= EstoqueURI.DETALHE_LIVRO_URI %>?l=<%=item.getId()%>" class="btn btn-yellow px-5">Detalhe</a>
+                                <a href="<%= EstoqueURI.DETALHE_LIVRO_URI %>?l=<%=item.getLivro().getId()%>" class="btn btn-yellow px-5">Detalhe</a>
                             </div>
                         </div>
                     </div>

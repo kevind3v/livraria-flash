@@ -1,6 +1,7 @@
 package web.viewHelper;
 
 import database.dominio.EntidadeDominio;
+import database.dominio.Livro.Livro;
 import database.dominio.Venda.ItemEstoque;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,19 @@ public class ItemEstoqueVH implements IViewHelper {
 
         String operacao = request.getParameter("operacao");
 
-        if(operacao != null) {
+        String idItemString = request.getParameter("l");;
 
-        } else {
-            int idItem = Integer.valueOf(request.getParameter("l"));
-            item.setId(idItem);
+        if (idItemString != null && !idItemString.isEmpty()) {
+            Livro livro = new Livro();
+            livro.setId(Integer.parseInt(idItemString));
+
+            item.setLivro(livro);
         }
+//        if(operacao != null) {
+//
+//        } else {
+//
+//        }
 
         return item;
     }

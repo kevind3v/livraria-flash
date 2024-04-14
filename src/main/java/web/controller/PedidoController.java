@@ -1,10 +1,12 @@
 package web.controller;
 
+import database.dominio.Usuario.Usuario;
 import database.dominio.Venda.Pedido;
 import support.Json;
 import support.URI.PagamentoURI;
 import support.URI.PedidoURI;
 import support.URI.UsuarioURI;
+import web.command.ConsultarCommand;
 import web.command.ConsultarPorIdCommand;
 import web.command.ICommand;
 import web.command.SalvarCommand;
@@ -16,9 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {PedidoURI.FINALIZAR_URI, PedidoURI.DETALHE_URI})
+@WebServlet(urlPatterns = {PedidoURI.FINALIZAR_URI, PedidoURI.DETALHE_URI, PedidoURI.LISTA_URI})
 public class PedidoController extends AbstractController {
 
     @Override
@@ -31,6 +34,24 @@ public class PedidoController extends AbstractController {
         ICommand cmd = null;
 
         switch (uri) {
+            case PedidoURI.LISTA_URI:
+                Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+                if (usuario == null) {
+                    response.sendRedirect(UsuarioURI.LOGIN_URI);
+                    return;
+                }
+
+                cmd = new ConsultarCommand();
+
+                @SuppressWarnings("unchecked")
+                List<Pedido> pedidos = (List<Pedido>) cmd.executar(pedido);
+
+                request.getSession().setAttribute("pedidos", pedidos);
+
+                parametros.put("titulo", "Meus Pedidos | Flash.com.br");
+                view.forwardToJSP(request, response, "cli-pedidos", parametros);
+                break;
             case PedidoURI.DETALHE_URI:
                 cmd = new ConsultarPorIdCommand();
 

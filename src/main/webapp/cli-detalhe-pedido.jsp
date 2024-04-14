@@ -3,6 +3,7 @@
 <%@ page import="database.dominio.Venda.*" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page import="database.dominio.Livro.Autor" %>
+<%@ page import="support.URI.PedidoURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -24,7 +25,7 @@
             <span class="text-muted mx-3">|</span>
             <span><span style="font-weight: bold;">Pedido n°</span> <%=Mascara.doisDigitoAno(pedido.getDtCadastro().toString())%>-<%= Mascara.formatarIdPedido(pedido.getId()) %></span>
         </div>
-        <a href="#" class="btn btn-warning">Todos Pedidos</a>
+        <a href="<%= PedidoURI.LISTA_URI %>" class="btn btn-warning">Todos Pedidos</a>
     </div>
 
     <div class="card mt-3 p-3">

@@ -112,7 +112,102 @@ public class PedidoDAO extends AbstractDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        return List.of();
+        List<EntidadeDominio> pedidos = new ArrayList<>();
+        Pedido pedido = (Pedido) entidade;
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT * FROM pedidos ");
+        if(pedido.getCliente() != null)
+            sql.append("WHERE cli_id = ? ORDER BY pdd_id DESC;");
+
+        try {
+
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            if(pedido.getCliente() != null)
+                pst.setInt(1, pedido.getCliente().getId());
+
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+
+                StatusPedido status = null;
+                int idStatus = rs.getInt("stp_id");
+
+                if(idStatus == 1) {
+                    status = StatusPedido.PROCESSAMENTO;
+                }else if (idStatus == 2) {
+                    status = StatusPedido.TRANSITO;
+                }else if (idStatus == 3) {
+                    status = StatusPedido.ENTREGUE;
+                }else if (idStatus == 4) {
+                    status = StatusPedido.TROCA;
+                }else if (idStatus == 5) {
+                    status = StatusPedido.AUTORIZADA;
+                }else if (idStatus == 6) {
+                    status = StatusPedido.RECUSADA;
+                }else if (idStatus == 7) {
+                    status = StatusPedido.TROCADO;
+                }else if (idStatus == 8) {
+                    status = StatusPedido.PAGTO;
+                }
+
+                Pedido pdd = new Pedido(
+                        status,
+                        new BigDecimal (rs.getString("pdd_valor_total")),
+                        rs.getDate("pdd_data").toLocalDate()
+                );
+
+                pdd.setId(rs.getInt("pdd_id"));
+
+                if(pedido.getCliente() != null) {
+                    Cliente cliente = pedido.getCliente();
+                    pdd.setCliente(cliente);
+                }
+
+                EnderecoEntregaDAO endDao = new EnderecoEntregaDAO(conn);
+                EnderecoEntrega endereco = new EnderecoEntrega();
+                endereco.setId(rs.getInt("ede_id"));
+                endereco = (EnderecoEntrega) endDao.consultarPorId(endereco);
+                pdd.setEndereco(endereco);
+
+                ItemPedidoDAO itemPedidoDao = new ItemPedidoDAO(conn);
+                List<ItemPedido> itens = new ArrayList<>();
+                for(EntidadeDominio e : itemPedidoDao.consultar(pdd))
+                    itens.add((ItemPedido) e);
+
+                pdd.setItens(itens);
+
+                CupomDAO crDao = new CupomDAO(conn);
+                List<Cupom> cupons = crDao.consultarPorPedido(pdd);
+                pdd.setCupons(cupons);
+
+                pedidos.add(pdd);
+            }
+
+            return pedidos;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

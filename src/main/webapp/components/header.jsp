@@ -1,9 +1,6 @@
 <%@ page import="database.dominio.Usuario.Usuario" %>
-<%@ page import="support.URI.UsuarioURI" %>
-<%@ page import="support.URI.ClienteURI" %>
-<%@ page import="support.URI.CarrinhoURI" %>
 <%@ page import="database.dominio.Venda.Carrinho" %>
-<%@ page import="support.URI.EstoqueURI" %>
+<%@ page import="support.URI.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
@@ -43,9 +40,11 @@
             <li class="nav-item">
                 <a href="<%= EstoqueURI.LISTA_URI %>" class="nav-link">Estante de Livros</a>
             </li>
+            <% if(usr != null){%>
             <li class="nav-item">
-                <a href="#" class="nav-link">Meus Pedidos</a>
+                <a href="<%= PedidoURI.LISTA_URI %>" class="nav-link">Meus Pedidos</a>
             </li>
+            <%}%>
         </ul>
 
         <div class="" id="nav">
