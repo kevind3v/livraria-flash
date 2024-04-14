@@ -132,42 +132,6 @@
                     </div>
                 </div>
                 <%}%>
-<%--                <div class="col-4 mb-3">--%>
-<%--                    <div class="cupom disponivel" onclick="copiarCupom('FLASH39')">--%>
-<%--                        <div class="cupom-indisponivel d-none">--%>
-<%--                            <span class="px-5 py-1" style="font-weight: bold; font-size: 20px">FLASH10</span>--%>
-<%--                            <span class="px-5 py-1" style="border-radius: 5px; font-weight: 500; background: rgb(251,183,44)">Expirado</span>--%>
-<%--                        </div>--%>
-<%--                        <div class="status-cupom d-flex justify-content-center align-items-center">--%>
-<%--                            <div class="cupom-img d-flex align-items-center  my-3 ml-3" style="border-right: 2px #3f4d67 dashed; width: 70px; height: 70px">--%>
-<%--                                <i class="fas fa-bolt" style="color: #ffd43b; font-size: 50px"></i>--%>
-<%--                            </div>--%>
-<%--                            <div class="cupom-content m-3 d-flex flex-column">--%>
-<%--                                <span class="text-muted" style="font-size: 16px; font-weight: 500">TROCA</span>--%>
-<%--                                <span class="text-muted" style="font-weight: 500">R$ <span style="font-size: 26px; font-weight: 900">143.80</span> Desc.</span>--%>
-<%--                                <span class="text-muted" style="opacity: 0.7; font-size: 14px">Expira em 20/04/2024</span>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-4 mb-3">--%>
-<%--                    <div class="cupom">--%>
-<%--                        <div class="cupom-indisponivel">--%>
-<%--                            <span class="px-5 py-1" style="font-weight: bold; font-size: 20px">FLASH5</span>--%>
-<%--                            <span class="px-5 py-1" style="border-radius: 5px; font-weight: 500; background: rgb(251,183,44)">Usado</span>--%>
-<%--                        </div>--%>
-<%--                        <div class="status-cupom expirado d-flex justify-content-center align-items-center">--%>
-<%--                            <div class="cupom-img d-flex align-items-center  my-3 ml-3" style="border-right: 2px #3f4d67 dashed; width: 70px; height: 70px">--%>
-<%--                                <i class="fas fa-bolt" style="color: #ffd43b; font-size: 50px"></i>--%>
-<%--                            </div>--%>
-<%--                            <div class="cupom-content m-3 d-flex flex-column">--%>
-<%--                                <span class="text-muted" style="font-size: 16px; font-weight: 500">TROCA</span>--%>
-<%--                                <span class="text-muted" style="font-weight: 500">R$ <span style="font-size: 26px; font-weight: 900">143.80</span> Desc.</span>--%>
-<%--                                <span class="text-muted" style="opacity: 0.7; font-size: 14px">Expira em 20/04/2024</span>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
             </div>
         </div>
     </div>
