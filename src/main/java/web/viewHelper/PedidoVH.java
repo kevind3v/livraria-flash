@@ -43,6 +43,28 @@ public class PedidoVH implements IViewHelper  {
                 pedido = new Pedido(cliente, carrinho, endereco, cartoes, cupons);
 
                 pedido.setStatus(StatusPedido.PROCESSAMENTO);
+            } else if(operacao.equals("Alterar")) {
+                pedido = (Pedido) request.getSession().getAttribute("pedido");
+
+                int numStatus = Integer.valueOf(request.getParameter("txtStatus"));
+                StatusPedido status = null;
+
+                if(numStatus == 1) {
+                    status = StatusPedido.PROCESSAMENTO;
+                }else if (numStatus == 2) {
+                    status = StatusPedido.ACEITO;
+                }else if (numStatus == 3) {
+                    status = StatusPedido.RECUSADO;
+                }else if (numStatus == 4) {
+                    status = StatusPedido.CANCELADO;
+                }else if (numStatus == 5) {
+                    status = StatusPedido.TRANSITO;
+                }else if (numStatus == 6) {
+                    status = StatusPedido.ENTREGUE;
+                }
+
+                pedido.setStatus(status);
+
             }
         }
 

@@ -455,13 +455,12 @@ INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Em estoque');
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Fora de mercado');
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Sem estoque');
 
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Em Processamento');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Em Trânsito');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Entregue');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Em Troca');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Troca Autorizada');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Troca Recusada');
-INSERT INTO STATUS_PEDIDOS (stp_descricao) values ('Troca Finalizada');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (1, 'Em Processamento');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (2, 'Pagamento Realizado');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (3, 'Pagamento Recusado');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (4, 'Cancelado');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (5, 'Em Trânsito');
+INSERT INTO STATUS_PEDIDOS (stp_id, stp_descricao) values (6, 'Entregue');
 
 INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
   1, 25, true, 'Primeira entrada', 1, '29.90', '0'

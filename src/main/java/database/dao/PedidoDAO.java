@@ -107,7 +107,44 @@ public class PedidoDAO extends AbstractDAO {
 
     @Override
     public void alterar(EntidadeDominio entidade) {
+        Pedido pedido = (Pedido) entidade;
+        StringBuilder sql = new StringBuilder();
+        PreparedStatement pst = null;
 
+        sql.append("UPDATE pedidos SET ");
+        sql.append("stp_id = ? ");
+        sql.append("WHERE pdd_id = ?");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            conn.setAutoCommit(false);
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            pst.setInt(1, pedido.getStatus().getValor());
+            pst.setInt(2, pedido.getId());
+
+            pst.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally{
+            if(controleTransacao)
+                try {
+                    conn.close();
+                    pst.close();
+                }catch(SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     @Override
@@ -144,19 +181,15 @@ public class PedidoDAO extends AbstractDAO {
                 if(idStatus == 1) {
                     status = StatusPedido.PROCESSAMENTO;
                 }else if (idStatus == 2) {
-                    status = StatusPedido.TRANSITO;
+                    status = StatusPedido.ACEITO;
                 }else if (idStatus == 3) {
-                    status = StatusPedido.ENTREGUE;
+                    status = StatusPedido.RECUSADO;
                 }else if (idStatus == 4) {
-                    status = StatusPedido.TROCA;
+                    status = StatusPedido.CANCELADO;
                 }else if (idStatus == 5) {
-                    status = StatusPedido.AUTORIZADA;
+                    status = StatusPedido.TRANSITO;
                 }else if (idStatus == 6) {
-                    status = StatusPedido.RECUSADA;
-                }else if (idStatus == 7) {
-                    status = StatusPedido.TROCADO;
-                }else if (idStatus == 8) {
-                    status = StatusPedido.PAGTO;
+                    status = StatusPedido.ENTREGUE;
                 }
 
                 Pedido pdd = new Pedido(
@@ -241,19 +274,15 @@ public class PedidoDAO extends AbstractDAO {
                 if(idStatus == 1) {
                     status = StatusPedido.PROCESSAMENTO;
                 }else if (idStatus == 2) {
-                    status = StatusPedido.TRANSITO;
+                    status = StatusPedido.ACEITO;
                 }else if (idStatus == 3) {
-                    status = StatusPedido.ENTREGUE;
+                    status = StatusPedido.RECUSADO;
                 }else if (idStatus == 4) {
-                    status = StatusPedido.TROCA;
+                    status = StatusPedido.CANCELADO;
                 }else if (idStatus == 5) {
-                    status = StatusPedido.AUTORIZADA;
+                    status = StatusPedido.TRANSITO;
                 }else if (idStatus == 6) {
-                    status = StatusPedido.RECUSADA;
-                }else if (idStatus == 7) {
-                    status = StatusPedido.TROCADO;
-                }else if (idStatus == 8) {
-                    status = StatusPedido.PAGTO;
+                    status = StatusPedido.ENTREGUE;
                 }
 
                 pedido = new Pedido(

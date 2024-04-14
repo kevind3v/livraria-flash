@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="card-body">
-            <h5 style="font-weight: 700;" class="mb-4">Em Processamento</h5>
+            <h5 style="font-weight: 700;" class="mb-4"><%= pedido.getStatus().getDescricao() %></h5>
             <%
                 int qtdItems = 0;
                 for(ItemPedido item : pedido.getItens()){
@@ -73,7 +73,7 @@
             <%for(ItemPedido item : pedido.getItens()){%>
                 <div class="item-comprado d-flex align-items-center">
                     <div class="product-tumb mr-3">
-                        <img style="width: 100px; max-width: 100px;" src="../img/livros/<%=item.getLivro().getUrlCapa()%>"/>
+                        <img style="width: 60px; max-width: 60px;" src="../img/livros/<%=item.getLivro().getUrlCapa()%>"/>
                     </div>
                     <div class="card-content">
                         <a href="<%= EstoqueURI.DETALHE_LIVRO_URI %>?l=<%= item.getLivro().getId() %>" class="mb-1" style="text-transform: none; font-size: 16px;"><%=item.getLivro().getTitulo()%></a>

@@ -1,9 +1,12 @@
 package database.dominio.Venda;
 
 public enum StatusPedido {
-    PROCESSAMENTO("Em Processamento", 1), TRANSITO("Em Trânsito", 2) , ENTREGUE("Entregue", 3),
-    TROCA("Em Troca", 4), AUTORIZADA("Troca Autorizada",5), RECUSADA("Troca Recusada", 6), 
-    TROCADO("Troca Finalizada", 7), PAGTO("Pagamento Recusado", 8);
+    PROCESSAMENTO("Em Processamento", 1),
+    ACEITO("Pagamento Realizado", 2),
+    RECUSADO("Pagamento Recusado", 3),
+    CANCELADO("Cancelado", 4),
+    TRANSITO("Em Trânsito", 5),
+    ENTREGUE("Entregue", 6);
 
     private String descricao;
     private int valor;
