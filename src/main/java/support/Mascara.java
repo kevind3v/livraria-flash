@@ -34,6 +34,19 @@ public class Mascara {
         }
     }
 
+    public static String dataBR(String dataString) {
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatoSaida = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
+
+        try {
+            Date data = formatoEntrada.parse(dataString);
+            return formatoSaida.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace(); // ou outro tratamento de erro, se necessário
+            return null; // retorna null em caso de exceção
+        }
+    }
+
     public static String doisDigitoAno(String dataString) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat formatoSaida = new SimpleDateFormat("yy", new Locale("pt", "BR"));

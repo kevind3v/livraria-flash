@@ -2,6 +2,7 @@ package database.dominio.Usuario;
 
 import database.dominio.EntidadeDominio;
 import database.dominio.Venda.CartaoCredito;
+import database.dominio.Venda.Cupom;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class Cliente extends EntidadeDominio {
     private List<Endereco> enderecos;
     private List<CartaoCredito> cartoes;
 
+    private List<Cupom> cupons;
+
     public Cliente() {}
 
     public Cliente(String nome, String dtNascimento, String cpf, Genero genero) {
@@ -24,6 +27,14 @@ public class Cliente extends EntidadeDominio {
         this.dtNascimento = dtNascimento;
         this.cpf = cpf;
         this.genero = genero;
+    }
+
+    public List<Cupom> getCupons() {
+        return cupons;
+    }
+
+    public void setCupons(List<Cupom> cupons) {
+        this.cupons = cupons;
     }
 
     public String getNome() {

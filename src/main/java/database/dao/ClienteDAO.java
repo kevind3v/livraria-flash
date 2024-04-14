@@ -5,6 +5,7 @@ import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.*;
 import database.dominio.Venda.Carrinho;
 import database.dominio.Venda.CartaoCredito;
+import database.dominio.Venda.Cupom;
 import database.dominio.Venda.ItemCarrinho;
 import support.Mascara;
 import web.command.ConsultarCommand;
@@ -334,6 +335,12 @@ public class ClienteDAO extends AbstractDAO {
                 for(EntidadeDominio ent : cardDao.consultar(cliente))
                     cartoes.add((CartaoCredito) ent);
                 cliente.setCartoes(cartoes);
+
+                CupomDAO cupomDao = new CupomDAO(conn);
+                List<Cupom> cupons = new ArrayList<>();
+                for(EntidadeDominio ent : cupomDao.consultar(cliente))
+                    cupons.add((Cupom) ent);
+                cliente.setCupons(cupons);
             }
 
             return cliente;
@@ -468,6 +475,12 @@ public class ClienteDAO extends AbstractDAO {
                 for(EntidadeDominio entidade : cardDao.consultar(cliente))
                     cartoes.add((CartaoCredito) entidade);
                 cliente.setCartoes(cartoes);
+
+                CupomDAO cupomDao = new CupomDAO(conn);
+                List<Cupom> cupons = new ArrayList<>();
+                for(EntidadeDominio entidade : cupomDao.consultar(cliente))
+                    cupons.add((Cupom) entidade);
+                cliente.setCupons(cupons);
 
                 cliente.setUsuario(user);
 
