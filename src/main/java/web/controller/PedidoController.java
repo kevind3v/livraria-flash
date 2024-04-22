@@ -3,6 +3,7 @@ package web.controller;
 import database.dominio.Usuario.Usuario;
 import database.dominio.Venda.Pedido;
 import support.Json;
+import support.Mascara;
 import support.URI.CarrinhoURI;
 import support.URI.PagamentoURI;
 import support.URI.PedidoURI;
@@ -89,7 +90,9 @@ public class PedidoController extends AbstractController {
 
                 pedidoVh.setEntidade(response, request, pedido);
 
-                parametros.put("titulo", "Meus Pedidos | Flash.com.br");
+                String title = Mascara.doisDigitoAno(pedido.getDtCadastro().toString())+"-"+ Mascara.formatarIdPedido(pedido.getId());
+
+                parametros.put("titulo", "Pedido "+title+" | Flash.com.br");
                 view.forwardToJSP(request, response, "adm-detalhe-pedido", parametros);
                 break;
             case PedidoURI.DETALHE_URI:

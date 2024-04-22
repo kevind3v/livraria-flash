@@ -31,19 +31,27 @@
 
 <% Usuario usr = (Usuario) request.getSession().getAttribute("usuario"); %>
 
+
+<% if(usr == null){%>
+<jsp:include page="/components/banner-cupom.jsp"/>
+<div style="margin-top: 59px;"></div>
+<%}%>
+
 <header class="header navbar navbar-expand-md navbar-light bg-white">
     <div class="container">
         <a class="navbar-brand brand" href="<%= UsuarioURI.CLIENTE_HOME_URI %>">
             <i class="fas fa-bolt"></i> Flash
         </a>
         <ul class="navbar-nav mr-auto icons-nav">
+            <% if(usr != null){%>
+            <% if(!usr.isAdmin()){%>
             <li class="nav-item">
                 <a href="<%= EstoqueURI.LISTA_URI %>" class="nav-link">Estante de Livros</a>
             </li>
-            <% if(usr != null){%>
             <li class="nav-item">
                 <a href="<%= PedidoURI.LISTA_URI %>" class="nav-link">Meus Pedidos</a>
             </li>
+            <%}%>
             <%}%>
         </ul>
 

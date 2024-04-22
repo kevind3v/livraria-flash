@@ -1,10 +1,12 @@
 package web.viewHelper;
 
 import database.dao.ClienteDAO;
+import database.dao.ItemEstoqueDAO;
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.Cliente;
 import database.dominio.Usuario.Usuario;
 import database.dominio.Venda.Carrinho;
+import database.dominio.Venda.ItemEstoque;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

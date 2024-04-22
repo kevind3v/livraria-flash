@@ -85,6 +85,22 @@
     </div>
     <div class="card mt-3 mb-5">
         <div class="card-header m-0" style="background: transparent;">
+            <h4 style="font-weight: 700;" class="mb-0"><%=pedido.getStatus().getDescricao()%></h4>
+            <% if (pedido.getStatus() == StatusPedido.PROCESSAMENTO) { %>
+                <span>Seu pedido está sendo processado</span>
+            <%} else if (pedido.getStatus() == StatusPedido.ACEITO) {%>
+                <span>O pagamento do seu pedido já foi aprovado e logo será enviado para você.</span>
+            <%} else if (pedido.getStatus() == StatusPedido.RECUSADO) {%>
+                <span>Infelizmente, houve um problema com o processamento do seu pagamento.</span>
+            <%} else if (pedido.getStatus() == StatusPedido.CANCELADO) {%>
+                <span>Seu pedido foi cancelado.</span>
+            <%} else if (pedido.getStatus() == StatusPedido.TRANSITO) {%>
+                <span>Seu pedido está a caminho.</span>
+            <%} else if (pedido.getStatus() == StatusPedido.ENTREGUE) {%>
+                <span>Seu pedido foi entregue com sucesso. Boa leitura :)</span>
+            <%}%>
+        </div>
+        <div class="card-body">
             <%
                 int qtdItems = 0;
                 for(ItemPedido item : pedido.getItens()){
@@ -92,9 +108,7 @@
                 }
             %>
             <span style="font-size: 18px;">Pacote com <%= qtdItems %> Livros(s)</span>
-        </div>
-        <div class="card-body">
-            <h4 style="font-weight: 700;" class="mb-4"><%=pedido.getStatus().getDescricao()%></h4>
+            <div class="my-3"></div>
             <style>
                 .item-comprado:not(:last-child) {
                     margin-bottom: 40px;
@@ -107,7 +121,7 @@
                 </div>
                 <div class="card-content pt-3">
                     <h4 class="mb-1" style="text-transform: none; font-size: 18px;"><%=item.getLivro().getTitulo()%></h4>
-                    <div class="text-muted">De <% for(Autor autor : item.getLivro().getAutores()){ %> <%= autor.getNome() %>; <% }%></div>
+                    <div class="text-muted">De <%= Mascara.listaParaString(item.getLivro().getAutores()) %></div>
                     <div class="card-price mt-2" style="font-size: 18px; font-weight: 500;"><%= item.getQuantidade() %> x <span>R$ <%=item.getValorVenda()%></span></div>
                 </div>
             </div>

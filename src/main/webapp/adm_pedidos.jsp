@@ -45,7 +45,7 @@
                 <td>R$ <%=pedido.getValorTotal().add(pedido.getEndereco().getFrete().getValor()).subtract(desconto)%></td>
                 <td>
                     <div class="d-flex justify-content-center align-items-center">
-                        <a href="<%= PedidoURI.DETALHE_ADMIN_URI %>?p=<%= pedido.getId() %>" title="Detalhe do Pedido">
+                        <a href="<%= PedidoURI.DETALHE_ADMIN_URI %>?p=<%= pedido.getId() %>" class="btn-detalhe" title="Detalhe do Pedido">
                             <i class="fas fa-eye text-secondary" style="font-size: 20px;"></i>
                         </a>
                     </div>

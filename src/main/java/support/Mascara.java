@@ -1,8 +1,12 @@
 package support;
 
+import database.dominio.EntidadeDominio;
+import database.dominio.Livro.Autor;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +36,34 @@ public class Mascara {
             e.printStackTrace(); // ou outro tratamento de erro, se necessário
             return null; // retorna null em caso de exceção
         }
+    }
+
+    public static String listaParaString(List<Autor> lista) {
+        StringBuilder sb = new StringBuilder();
+
+        // Se a lista estiver vazia, retornar uma string vazia
+        if (lista.isEmpty()) {
+            return "";
+        }
+
+        // Se a lista tiver apenas um elemento, retornar esse elemento
+        if (lista.size() == 1) {
+            return lista.get(0).getNome();
+        }
+
+        // Iterar pela lista até o penúltimo elemento
+        for (int i = 0; i < lista.size() - 1; i++) {
+            sb.append(lista.get(i).getNome());
+            sb.append(", ");
+        }
+
+        sb.delete(sb.length() - 2, sb.length());
+
+        // Adicionar o último elemento
+        sb.append(" e ");
+        sb.append(lista.get(lista.size() - 1).getNome());
+
+        return sb.toString();
     }
 
     public static String dataBR(String dataString) {

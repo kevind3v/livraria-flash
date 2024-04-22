@@ -77,7 +77,7 @@
                     </div>
                     <div class="card-content">
                         <a href="<%= EstoqueURI.DETALHE_LIVRO_URI %>?l=<%= item.getLivro().getId() %>" class="mb-1" style="text-transform: none; font-size: 16px;"><%=item.getLivro().getTitulo()%></a>
-                        <div class="text-muted" style="font-size: 12px">De <% for(Autor autor : item.getLivro().getAutores()){ %> <%= autor.getNome() %>; <% }%></div>
+                        <div class="text-muted" style="font-size: 12px">De <%= Mascara.listaParaString(item.getLivro().getAutores()) %></div>
                         <div class="card-price mt-2" style="font-size: 14px; font-weight: 500;"><%= item.getQuantidade() %> x <span>R$ <%=item.getValorVenda()%></span></div>
                     </div>
                 </div>

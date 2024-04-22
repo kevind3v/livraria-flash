@@ -94,6 +94,9 @@
     </div>
     <div class="card mt-3 mb-5">
         <div class="card-header m-0" style="background: transparent;">
+            <h4 style="font-weight: 700;" class="mb-0"><%=pedido.getStatus().getDescricao()%></h4>
+        </div>
+        <div class="card-body">
             <%
                 int qtdItems = 0;
                 for(ItemPedido item : pedido.getItens()){
@@ -101,14 +104,12 @@
                 }
             %>
             <span style="font-size: 18px;">Pacote com <%= qtdItems %> Livros(s)</span>
-        </div>
-        <div class="card-body">
-            <h4 style="font-weight: 700;" class="mb-4"><%=pedido.getStatus().getDescricao()%></h4>
             <style>
                 .item-comprado:not(:last-child) {
                     margin-bottom: 20px;
                 }
             </style>
+            <div class="my-3"></div>
             <%for(ItemPedido item : pedido.getItens()){%>
             <div class="item-comprado d-flex align-items-center">
                 <div class="product-tumb mr-4">
@@ -116,8 +117,8 @@
                 </div>
                 <div class="card-content ">
                     <h4 class="mb-1" style="text-transform: none; font-size: 18px;"><%=item.getLivro().getTitulo()%></h4>
-                    <div class="text-muted">De <% for(Autor autor : item.getLivro().getAutores()){ %> <%= autor.getNome() %>; <% }%></div>
-                    <div class="card-price mt-2" style="font-size: 18px; font-weight: 500;"><%= item.getQuantidade() %> x <span>R$ <%=item.getValorVenda()%></span></div>
+                    <div class="text-muted" style="font-size: 14px">De <%= Mascara.listaParaString(item.getLivro().getAutores()) %></div>
+                    <div class="card-price mt-2" style="font-size: 16px; font-weight: 500;"><%= item.getQuantidade() %> x <span>R$ <%=item.getValorVenda()%></span></div>
                 </div>
             </div>
             <%} %>

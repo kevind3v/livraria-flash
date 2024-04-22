@@ -2,10 +2,14 @@ package web.viewHelper;
 
 import database.dominio.EntidadeDominio;
 import database.dominio.Usuario.*;
+import database.dominio.Venda.Cupom;
+import database.dominio.Venda.TipoCupom;
 import support.Mascara;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,8 @@ public class ClienteVH implements IViewHelper  {
         Cliente cliente = null;
 
         String nmOperacao = request.getParameter("operacao");
+
+        String idCliente = request.getParameter("c");
 
         if(nmOperacao != null) {
             if(nmOperacao.equals("Salvar")) {
@@ -59,6 +65,18 @@ public class ClienteVH implements IViewHelper  {
                 cliente.setTelefone(telefone);
                 cliente.setEnderecos(enderecos);
                 cliente.setUsuario(usuario);
+
+                Cupom cupom = new Cupom("FLASH10",
+                        TipoCupom.PROMOCIONAL,
+                        new BigDecimal("10.00"),
+                        LocalDate.now().plusMonths(1)
+                );
+
+                List<Cupom> cupons = new ArrayList<>();
+                cupom.setCliente(cliente);
+                cupons.add(cupom);
+
+                cliente.setCupons(cupons);
 
                 return cliente;
             } else if(nmOperacao.equals("ConsultarPorId")) {
@@ -119,6 +137,19 @@ public class ClienteVH implements IViewHelper  {
                 }
                 return cliente;
             }
+        } else if(idCliente != null) {
+            cliente = new Cliente();
+
+//            Usuario usr = (Usuario) request.getSession().getAttribute("usuario");
+//
+//            if(!usr.isAdmin()) {
+//                cliente.setId(usr.getCliente().getId());
+//                cliente.setUsuario(usr);
+//
+//                return cliente;
+//            }
+
+            cliente.setId(Integer.valueOf(idCliente));
         } else {
             cliente = new Cliente();
         }

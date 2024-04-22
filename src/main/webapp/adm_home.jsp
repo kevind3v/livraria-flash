@@ -1,4 +1,5 @@
 <%@ page import="support.URI.PedidoURI" %>
+<%@ page import="support.URI.ClienteURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -28,8 +29,8 @@
         </div>
 
         <div class="col mb-5">
-            <div class="card-about">
-                <a href="/EcomerceLivroLES/adm-grafico">
+            <div class="card-about" style="opacity: 0.3">
+                <a href="#">
                     <i class="fa-solid fa-chart-line text-warning" style="font-size: 50px"></i>
                 </a>
                 <h6 class="my-0 fw-normal mt-3">Gráficos</h6>
@@ -37,8 +38,8 @@
         </div>
 
         <div class="col">
-            <div class="card-about">
-                <a href="/EcomerceLivroLES/adm-grafico">
+            <div class="card-about" style="opacity: 0.3">
+                <a href="#">
                     <i class="fa-solid fa-retweet text-warning" style="font-size: 50px"></i>
                 </a>
                 <h6 class="my-0 fw-normal mt-3">Trocas</h6>
@@ -46,8 +47,8 @@
         </div>
 
         <div class="col">
-            <div class="card-about">
-                <a href="/EcomerceLivroLES/adm-grafico">
+            <div class="card-about" style="opacity: 0.3">
+                <a href="#">
                     <i class="fa-solid fa-boxes-stacked text-warning" style="font-size: 50px"></i>
                 </a>
                 <h6 class="my-0 fw-normal mt-3">Estoque</h6>
@@ -56,7 +57,7 @@
 
         <div class="col">
             <div class="card-about">
-                <a href="/EcomerceLivroLES/adm-grafico">
+                <a href="<%= ClienteURI.LISTA_ADMIN_URI %>">
                     <i class="fa-solid fa-users text-warning" style="font-size: 50px"></i>
                 </a>
                 <h6 class="my-0 fw-normal mt-3">Clientes</h6>

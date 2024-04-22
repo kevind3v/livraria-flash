@@ -1,13 +1,11 @@
 package web.controller;
 
 import database.dominio.Usuario.Cliente;
+import database.dominio.Venda.Pedido;
 import support.Json;
 import support.URI.ClienteURI;
 import support.URI.UsuarioURI;
-import web.command.AlterarCommand;
-import web.command.ConsultarPorIdCommand;
-import web.command.ICommand;
-import web.command.SalvarCommand;
+import web.command.*;
 import web.viewHelper.ClienteVH;
 
 import javax.servlet.ServletException;
@@ -16,9 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {ClienteURI.CADASTRAR_URI, ClienteURI.PERFIL_SEGURANCA_URI, ClienteURI.PERFIL_CARTOES_URI, ClienteURI.PERFIL_CUPONS_URI, ClienteURI.PERFIL_URI, ClienteURI.PERFIL_ENDERECO_URI, ClienteURI.PERFIL_ALTERAR_URI})
+@WebServlet(urlPatterns = {ClienteURI.LISTA_ADMIN_URI, ClienteURI.DETALHE_ADMIN_URI, ClienteURI.CADASTRAR_URI, ClienteURI.PERFIL_SEGURANCA_URI, ClienteURI.PERFIL_CARTOES_URI, ClienteURI.PERFIL_CUPONS_URI, ClienteURI.PERFIL_URI, ClienteURI.PERFIL_ENDERECO_URI, ClienteURI.PERFIL_ALTERAR_URI})
 public class ClienteController extends AbstractController {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +30,38 @@ public class ClienteController extends AbstractController {
         String retorno = null;
 
         switch (uri) {
+            case ClienteURI.DETALHE_ADMIN_URI:
+                cliente = (Cliente) clienteVh.getEntidade(request);
+
+                cmd = new ConsultarPorIdCommand();
+                cliente = (Cliente) cmd.executar(cliente);
+
+                clienteVh.setEntidade(response, request, cliente);
+
+                Pedido pedido = new Pedido();
+                pedido.setCliente(cliente);
+
+                cmd = new ConsultarCommand();
+
+                @SuppressWarnings("unchecked")
+                List<Pedido> pedidos = (List<Pedido>) cmd.executar(pedido);
+                request.setAttribute("pedidos", pedidos);
+
+                parametros.put("titulo", cliente.getNome() + " | Flash.com.br");
+                view.forwardToJSP(request, response, "adm-detalhe-cliente", parametros);
+                break;
+            case ClienteURI.LISTA_ADMIN_URI:
+                cliente = (Cliente) clienteVh.getEntidade(request);
+
+                cmd = new ConsultarCommand();
+                @SuppressWarnings("unchecked")
+                List<Cliente> clientes = (List<Cliente>) cmd.executar(cliente);
+
+                request.setAttribute("clientes", clientes);
+
+                parametros.put("titulo", "Clientes | Flash.com.br");
+                view.forwardToJSP(request, response, "adm_clientes", parametros);
+                break;
             case ClienteURI.CADASTRAR_URI:
                 cliente = (Cliente) clienteVh.getEntidade(request);
 

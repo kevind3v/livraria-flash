@@ -5,6 +5,7 @@
 <%@ page import="database.dominio.Livro.Autor" %>
 <%@ page import="database.dominio.Livro.Categoria" %>
 <%@ page import="support.URI.CarrinhoURI" %>
+<%@ page import="support.Mascara" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -85,8 +86,9 @@
                             <% if(item.getQuantidade() == 0){ %>
                                 <h4 class="mb-1 text-muted" style="text-transform: none; font-size: 16px;">Esgotado</h4>
                             <% } %>
-                            <h4 style="text-transform: none; font-size: 14px;"><%= item.getLivro().getTitulo() %></h4>
-                            <div class="card-price">R$ <%=item.getValorVenda()%></div>
+                            <h4 class="mb-1" style="text-transform: none; font-size: 15px;"><%= item.getLivro().getTitulo() %></h4>
+                            <span class="text-muted" style="font-size: 12px">por <%= Mascara.listaParaString(item.getLivro().getAutores()) %></span>
+                            <div class="card-price mt-3">R$ <%=item.getValorVenda()%></div>
                             <div class="text-center">
                                 <a href="<%= EstoqueURI.DETALHE_LIVRO_URI %>?l=<%=item.getLivro().getId()%>" class="btn btn-yellow px-5">Detalhe</a>
                             </div>

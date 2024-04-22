@@ -80,6 +80,12 @@ public class ClienteDAO extends AbstractDAO {
 
             criarCarrinho(cliente);
 
+            Cupom cp = cliente.getCupons().get(0);
+            cliente.setCupons(cliente.getCupons());
+
+            CupomDAO cupomDao = new CupomDAO(conn);
+            cupomDao.salvar(cp);
+
             conn.commit();
 
         } catch (Exception e) {
@@ -269,6 +275,75 @@ public class ClienteDAO extends AbstractDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+
+        List<EntidadeDominio> clientes = new ArrayList<>();
+        PreparedStatement pst = null;
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT cli_id, cli_cpf, cli_nome, gen_id, ");
+        sql.append("cli_dt_nasc, usr_id, tel_id ");
+        sql.append("FROM cliente;");
+
+        try {
+            if(conn == null) {
+                conn = Connect.getConnectionPostgres();
+            }else {
+                controleTransacao = false;
+            }
+
+            pst = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+
+                Genero genero = null;
+                if(rs.getInt("gen_id") == 1) {
+                    genero = Genero.MASCULINO;
+                }else if(rs.getInt("gen_id") == 2) {
+                    genero = Genero.FEMININO;
+                }else if(rs.getInt("gen_id") == 3) {
+                    genero = Genero.NAOBINARIO;
+                }
+
+                Cliente cliente = new Cliente(
+                        rs.getString("cli_nome"),
+                        rs.getString("cli_dt_nasc"),
+                        rs.getString("cli_cpf"),
+                        genero
+                );
+
+                TelefoneDAO telDao = new TelefoneDAO(conn);
+                Telefone tel = new Telefone();
+                tel.setId(rs.getInt("tel_id"));
+                cliente.setTelefone((Telefone) telDao.consultarPorId(tel));
+
+                UsuarioDAO usrDao = new UsuarioDAO(conn);
+                Usuario usr = new Usuario();
+                usr.setId(rs.getInt("usr_id"));
+                cliente.setUsuario((Usuario) usrDao.consultarPorId(usr));
+
+                cliente.setId(rs.getInt("cli_id"));
+
+                clientes.add(cliente);
+            }
+
+            return clientes;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }finally{
+            if(controleTransacao){
+                try {
+                    pst.close();
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         return null;
     }
 
@@ -300,7 +375,7 @@ public class ClienteDAO extends AbstractDAO {
                 if(rs.getInt("gen_id") == 1) {
                     genero = Genero.MASCULINO;
                 }else if(rs.getInt("gen_id") == 2) {
-                    genero = Genero.MASCULINO;
+                    genero = Genero.FEMININO;
                 }else if(rs.getInt("gen_id") == 3) {
                     genero = Genero.NAOBINARIO;
                 }
@@ -445,7 +520,7 @@ public class ClienteDAO extends AbstractDAO {
                 if(rs.getInt("gen_id") == 1) {
                     genero = Genero.MASCULINO;
                 }else if(rs.getInt("gen_id") == 2) {
-                    genero = Genero.MASCULINO;
+                    genero = Genero.FEMININO;
                 }else if(rs.getInt("gen_id") == 3) {
                     genero = Genero.NAOBINARIO;
                 }

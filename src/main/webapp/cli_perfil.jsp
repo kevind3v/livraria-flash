@@ -35,7 +35,7 @@
                     <div class="col-12 col-lg-8">
                         <div class="form-group">
                             <label for="txtNome" style="font-size: 13px; margin-bottom: 2px">Nome Completo<span class="span-required">*</span></label>
-                            <input type="text" class="form-control" required name="txtNome" value="<%=cliente.getNome()%>" id="txtNome">
+                            <input type="text" class="form-control" required name="txtNome"  value="<%=cliente.getNome()%>" id="txtNome">
                         </div>
                         <div class="row">
                             <div class="col">

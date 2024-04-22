@@ -411,6 +411,8 @@ INSERT INTO AUTORES (atr_id, atr_nome) VALUES (1, 'Eduardo Felberg');
 INSERT INTO AUTORES (atr_id, atr_nome) VALUES (2, 'Ziraldo A. Pinto');
 INSERT INTO AUTORES (atr_id, atr_nome) VALUES (3, 'Anna Lembke');
 INSERT INTO AUTORES (atr_id, atr_nome) VALUES (4, 'Christina Lauren');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (5, 'Workman Publishing');
+INSERT INTO AUTORES (atr_id, atr_nome) VALUES (6, ' Manual do Mundo');
 
 INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
 VALUES (1, 'Deixe De Ser Pobre', 2023, 'Maquinaria Editorial', 1, '9786588370988', 256, 'Eduardo Feldberg sempre foi fascinado pelo modo com que as pessoas lidam e investem o próprio dinheiro. Depois de uma formação em música, ele começou a observar o universo das finanças, mas percebeu que a maioria dos conteúdos tinham a mesma fórmula: um engravatado usando termos complicados, mais confundindo do que ajudando os que o assistiam. E também estava indignado: ‘com o fato de que muita gente boa trabalha demais o tempo todo para, no final das contas, ter uma vida mais lascada que joelho de freira.’ Então, foi criado o ‘Primo Pobre’, canal no YouTube com mais de 1,3 milhão de seguidores, destinado para o ‘povão’, para quem cansou de não entender a própria vida financeira e quer aprender a cuidar das finanças de forma fácil e descomplicada. Porque, afinal, todo brasileiro merece a tranquilidade de pagar as contas do mês, sair para almoçar com a família em um lugar legal, e conseguir investir um pouco do dinheiro.', 23, 15, 1.54, 250, 2, '9786588370988', 'produto1-1.jpg');
@@ -424,6 +426,18 @@ VALUES (3, 'Nação dopamina', 2022, 'Vestígio', 1, '9786586551716', 256, 'Este
 INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
 VALUES (4, 'Imperfeitos', 2022, 'Faro Editorial', 1, '9786559571284', 256, 'Olive se sente como a gêmea azarada da casa: dos acidentes estranhamente inexplicáveis ao fracasso na vida profissional e amorosa ― nada dá certo para ela. Porém, parece que o jogo vira quando sua alergia a frutos do mar a protege de um desastre, já que todos os convidados da festa de casamento da irmã sofrem com intoxicação alimentar. Na verdade... nem todos. Ethan, o irmão do noivo, também ficou de fora desse pesadelo. Então, a irmã de Olive, sempre muito prática, propõe a eles que aproveitem a viagem de lua-de-mel, que não é reembolsável, para uma ilha do Havaí. Mas há um “pequeno” problema: Olive e Ethan são inimigos mortais. Há um passado entre eles que tornou a convivência impossível. Mas quem vai dizer não para essa viagem? Ainda mais de graça? Nem pensar! A ideia de ambos era ficar bem longe um do outro, mas a situação muda quando uma mentirinha boba vai crescendo e não podem voltar atrás. E dividindo a mesma suíte, entre farpas e sarcasmos, já se pode desconfiar.... onde tem raiva tem fogo? Com diálogos inteligentes e divertidos, dois personagens cativantes, e cenários de tirar o fôlego, Imperfeitos é o livro ideal para rir sem parar e ainda ver uma história de amor nascer no lugar mais improvável.', 23, 16, 4, 300, 2, '9786559571284', 'produto3-1.jpg');
 
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (5, 'O Grande Livro de Matemática do Manual do Mundo', 2022, 'Sextante', 1, '9786555643367', 528, 'Com mais de 16 milhões de inscritos, o Manual do Mundo é considerado pelo Guinness World Records o maior canal de Ciência e Tecnologia em língua portuguesa do planeta! Nada mais natural que este Grande Livro de Matemática – um dos maiores sucessos da coleção americana Big Fat Notebook, que já vendeu mais de 8 milhões de exemplares – chegasse ao Brasil com a chancela do Manual do Mundo. Supercolorido, rabiscado de marca-texto e com ilustrações divertidas, este livro é garantia de informação de qualidade para todos que querem entender a arte da matemática. A matéria vai grudar na sua mente feito cola com definições claras e testes de conhecimento Tudo para você tirar as melhores notas! Neste volume, revisto e atualizado pelo Manual do Mundo, você vai encontrar: tipos de números, máximo divisor comum, frações, números decimais, razões, porcentagens, equações, geometria, probabilidade, plano cartesiano e muito mais.', 15.6, 21, 3.5, 300, 2, '9786555643367', 'produto-5-1.jpg');
+
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (6, 'O Grande Livro de Ciências do Manual do Mundo', 2019, 'Sextante', 1, '9788543108667', 528, 'Com mais de 18 milhões de inscritos no YouTube, o Manual do Mundo é um dos maiores canais de Ciência e Tecnologia do planeta! Dando continuidade à bem-sucedida coleção Big Fat Notebook – que já vendeu mais de 8 milhões de exemplares –, Iberê e Mari agora trazem O Grande Livro de Química para o leitor brasileiro. Supercolorido, rabiscado de marca-texto e com ilustrações divertidas, este livro é garantia de informação de qualidade para todos que desejam desbravar o mundo da Química. A matéria vai grudar na sua mente feito cola com: macetes de memorização, definições claras, tabelas práticas e testes de conhecimento. Tudo para você tirar as melhores notas! Neste volume, revisto e atualizado pelo Manual do Mundo, você vai encontrar: massa atômica, tabela periódica, eletroquímica, ligações, estequiometria, molaridade, entropia e entalpia, solubilidade, escala de ph, termodinâmica, química orgânica e muito mais.', 15.6, 21, 3.5, 300, 2, '9788543108667', 'produto6-1.jpg');
+
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (7, 'O Grande Livro de História do Manual do Mundo', 2020, 'Sextante', 1, '9786555640748', 592, 'Com 14 milhões de inscritos, o Manual do Mundo é considerado pelo Guinness World Records o maior canal de Ciência e Tecnologia em língua portuguesa do planeta! Sempre em busca de formas criativas de levar conhecimento às novas gerações, o Manual do Mundo apresenta O Grande Livro de História, mais um sucesso da coleção americana Big Fat Notebook, que já vendeu quase 5 milhões de exemplares. Supercolorido, rabiscado de marca-texto e com ótimas ilustrações, este livro ganhou seções caprichadas sobre a História do Brasil. Tudo com o selo de qualidade e a garantia de diversão do Manual do Mundo. A matéria vai grudar na sua mente feito cola com: macetes de memória, definições simples, observações interessantes e testes de conhecimento conhecimento. Tudo para você tirar as MELHORES NOTAS! Neste volume revisto e ampliado pelo Manual do Mundo, você vai encontrar: Primeiros Humanos, Idade Média, Renascimento, Brasil Colonial, Imperialismo, Primeira República, Primeira Guerra Mundial, Era Vargas, Segunda Guerra Mundial, Guerra Fria, Ditadura Militar, Transformações globais no mundo moderno e muito mais.', 15.6, 21, 3.7, 300, 2, '9786555640748', 'produto7-1.jpg');
+
+INSERT INTO LIVROS (lvr_id, lvr_titulo, lvr_ano, lvr_editora, lvr_edicao, lvr_isbn, lvr_numero_paginas, lvr_sinopse, lvr_altura, lvr_largura, lvr_profundidade, lvr_peso, lvr_grupo_precificacao, lvr_codigo_barras, lvr_link_capa)
+VALUES (8, 'O Grande Livro de Química do Manual do Mundo', 2023, 'Sextante', 1, '9786555646450', 592, 'Com mais de 18 milhões de inscritos no YouTube, o Manual do Mundo é um dos maiores canais de Ciência e Tecnologia do planeta! Dando continuidade à bem-sucedida coleção Big Fat Notebook – que já vendeu mais de 8 milhões de exemplares –, Iberê e Mari agora trazem O Grande Livro de Química para o leitor brasileiro. Supercolorido, rabiscado de marca-texto e com ilustrações divertidas, este livro é garantia de informação de qualidade para todos que desejam desbravar o mundo da Química. A matéria vai grudar na sua mente feito cola com: macetes de memorização, definições claras, tabelas práticas e testes de conhecimento. Tudo para você tirar as melhores notas! Neste volume, revisto e atualizado pelo Manual do Mundo, você vai encontrar: massa atômica, tabela periódica, eletroquímica, ligações, estequiometria, molaridade, entropia e entalpia, solubilidade, escala de ph, termodinâmica, química orgânica e muito mais.', 15.6, 21, 3.7, 300, 2, '9786555646450', 'produto8-1.jpg');
+
 
 INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(1, 'Consumismo');
 INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(2, 'Humor e Entretenimento');
@@ -432,6 +446,7 @@ INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(4, 'Aventura');
 INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(5, 'Literatura Estrangeira');
 INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(6, 'Autoajuda');
 INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(7, 'Psicologia');
+INSERT INTO CATEGORIAS (cat_id, cat_descricao) values(8, 'Escolas e Ensino');
 
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(1,1);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(2,1);
@@ -446,10 +461,30 @@ INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(5,2);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(6,3);
 INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(7,3);
 
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(4,5);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(8,5);
+
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(4,6);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(8,6);
+
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(4,8);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(8,8);
+
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(4,7);
+INSERT INTO CATEGORIAS_LIVROS (ctl_cat_id, ctl_lvr_id) values(8,7);
+
 INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(1,1);
 INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(2,2);
 INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(3,3);
 INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(4,4);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(5,5);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(6,5);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(5,6);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(6,6);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(5,7);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(6,7);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(5,8);
+INSERT INTO AUTORES_LIVROS(atl_atr_id, atl_lvr_id) values(6,8);
 
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Em estoque');
 INSERT INTO CATEGORIASTATUS (cgs_descricao) VALUES('Fora de mercado');
@@ -478,6 +513,9 @@ INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_
  4, 10, true, 'Primeira entrada', 1, '16.99', '0'
 )
 
+INSERT INTO ESTOQUE (lvr_id, etq_quantidade, etq_status, etq_justificativa, cgs_id, etq_valor_venda, etq_preco_custo) values (
+    5, 13, true, 'Primeira entrada', 1, '74.93', '0'
+)
 
 INSERT INTO TIPOSCUPONS (tpc_id, tpc_descricao) values (1, 'Troca');
 INSERT INTO TIPOSCUPONS (tpc_id, tpc_descricao) values (2, 'Promocional');

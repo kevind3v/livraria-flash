@@ -165,7 +165,7 @@
             <div class="card my-3 card-cartao-cadastrado" data-id="<%=card.getId()%>">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="custom-control d-flex align-items-center">
-                        <input type="checkbox" id="card<%=card.getId()%>" name="cartaoCredito<%=card.getId()%>" value="<%=card.getId()%>" class="cartao-credito custom-control-input">
+                        <input type="checkbox" id="card<%=card.getId()%>" name="cartaoCredito" value="<%=card.getId()%>" class="cartao-credito custom-control-input">
                         <label class="custom-control-label d-flex flex-column card-cartao" for="card<%=card.getId()%>">
                             <span>Cartão <b><%= card.getNomeIdentificacao() %></b></span>
                             <span class="text-muted" style="font-size: 14px; font-weight: 500;">Terminado em <%= Mascara.extrairUltimosQuatroDigitos(card.getNumero()) %> - Validade <%= card.getDataValidade() %></span>
@@ -285,7 +285,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <button data-id="<%=c.getId()%>" class="btn remover-cupom"><i class="fas fa-times text-danger"></i></button>
-                        <span class="text-info"><%=c.getCodigo()%></span>
+                        <span class="text-info codigo-cupom"><%=c.getCodigo()%></span>
                     </div>
                     <span>- R$<%=c.getValor()%></span>
                 </div>
@@ -310,7 +310,7 @@
                 <hr>
                 <div class="summary-item">
                     <span class="summary-label">Total:</span>
-                    <span class="summary-value">R$ <%= pagamento.getTotalCompra().subtract(valorDesconto) %></span>
+                    <span class="summary-value">R$ <span id="totalCompra"><%= pagamento.getTotalCompra().subtract(valorDesconto) %></span></span>
                 </div>
                 <%if(pagamento.getTotalCompra().subtract(pagamento.getTotalAlocado()).doubleValue() > 0){ %>
                 <div class="alert alert-info mt-3" role="alert">

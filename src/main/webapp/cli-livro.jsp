@@ -5,6 +5,7 @@
 <%@ page import="database.dominio.Livro.Autor" %>
 <%@ page import="database.dominio.Livro.Categoria" %>
 <%@ page import="support.URI.CarrinhoURI" %>
+<%@ page import="support.Mascara" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -77,7 +78,7 @@
                         <div class="card-body py-0">
                             <p class="card-text">
                                 <ul class="list-unstyled preco my-0">
-                                    <li class="mb-2"><b>Autor(es): </b><% for(Autor autor : livro.getAutores()){ %> <%= autor.getNome() %>; <% }%></li>
+                                    <li class="mb-2"><b>Autor(es): </b><%=Mascara.listaParaString(livro.getAutores())%></li>
                                     <li class="mb-2"><b>Categoria(s): </b><% for(Categoria categoria : livro.getCategorias()){ %> <%= categoria.getDescricao() %>; <% }%></li>
                                     <li class="mb-2"><b>ISBN: </b><%=livro.getISBN()%></li>
                                     <li class="mb-2"><b>Ano de publicação: </b><%=livro.getAno()%></li>

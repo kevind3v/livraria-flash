@@ -16,17 +16,18 @@
     }
 </style>
 
-<header class="header navbar navbar-expand-md navbar-light bg-white fixed-top border-0">
+<jsp:include page="/components/banner-cupom.jsp"/>
+<br/>
+<br/>
+
+<header class="header navbar navbar-expand-md navbar-light bg-white border-0 mt-2">
     <div class="container-fluid">
         <a class="navbar-brand brand" style="font-size: 2rem" href="<%= UsuarioURI.CLIENTE_HOME_URI %>">
-            <i class="fas fa-bolt" style="color: #ffd43b;"></i>Flash
+            <i class="fas fa-bolt" style="color: #ffd43b;"></i> Flash
         </a>
     </div>
 </header>
-<br/>
-<br/>
-<br/>
-<br/>
+
 <main class="container">
     <h2 class="text-center" style="font-weight: bold">Crie sua conta</h2>
     <p class="text-muted text-center">Crie sua conta e comece a leitura</p>
@@ -159,7 +160,7 @@
                     <div class="row py-1">
                         <div class="col-sm-6">
                             <div class="custom-control">
-                                <input class="custom-control-input" type="checkbox" role="switch" id="entrega" name="swtIsEntrega">
+                                <input class="custom-control-input" checked type="checkbox" role="switch" id="entrega" name="swtIsEntrega">
                                 <label class="custom-control-label" for="entrega">Endereco de entrega.</label>
                             </div>
                         </div>

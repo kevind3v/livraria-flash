@@ -1,6 +1,10 @@
 <%@ page import="support.URI.UsuarioURI" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+
+
+<jsp:include page="/components/banner-cupom.jsp"/>
+
 <div class="d-flex flex-column justify-content-center align-items-center h-100">
     <main class="container d-flex flex-column align-items-center">
 

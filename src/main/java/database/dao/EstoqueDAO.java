@@ -38,10 +38,11 @@ public class EstoqueDAO extends AbstractDAO {
         PreparedStatement pst = null;
         StringBuilder sql = new StringBuilder();
 
-        sql.append("SELECT distinct(etq_id), etq_quantidade, etq_valor_venda, l.lvr_id ");
+        sql.append("SELECT distinct(etq_id), etq_quantidade, etq_valor_venda, l.lvr_id, l.lvr_titulo ");
         sql.append("FROM estoque e inner join livros l on (e.lvr_id = l.lvr_id) ");
 
         if(estoque.getLimit() != null) {
+            sql.append(" ORDER BY etq_id DESC");
             sql.append(" LIMIT ").append(estoque.getLimit());
         } else if(!estoque.getParametros().isEmpty()) {
 
@@ -56,6 +57,10 @@ public class EstoqueDAO extends AbstractDAO {
             }
             clausulaWhere = new StringBuilder(clausulaWhere.substring(0, clausulaWhere.length() - 4));
             sql.append(clausulaWhere);
+        }
+
+        if (estoque.getLimit() == null) {
+            sql.append(" ORDER BY l.lvr_titulo ASC");
         }
 
         try {

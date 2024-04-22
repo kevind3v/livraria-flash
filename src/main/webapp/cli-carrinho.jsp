@@ -31,6 +31,15 @@
     input.quantity-input {
         -moz-appearance: textfield;
     }
+
+    a.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    a.disabled i {
+        opacity: 0.5;
+    }
 </style>
 
 <jsp:include page="/components/header.jsp"/>
@@ -59,13 +68,21 @@
         <tr>
             <td><%=item.getLivro().getTitulo()%></td>
             <td>R$ <%=item.getValorVenda()%></td>
-            <td>
-                <%=item.getQuantidade()%>
+            <td class="m-0 p-0">
+                <form action="<%= CarrinhoURI.EDITAR_ITEM %>" method="post" id="formEdit<%=item.getId()%>" style="min-height: 46px">
+                    <input type="hidden" name="idItem" value="<%=item.getId()%>">
+                    <select id="qtd<%=item.getId()%>" data-item="<%=item.getId()%>" onchange="habilitarEdicao(this);" class="form-control" style="min-height: 46px" name="txtQtd">
+                        <% for(int i = 1; i <= 20; i++){ %>
+                            <option value="<%= i %>" <%= (i == item.getQuantidade()) ? "selected" : "" %> ><%=i%></option>
+                        <%} %>
+                    </select>
+                    <input type="hidden" name="operacao" value="Editar">
+                </form>
             </td>
-            <td>R$ <%= item.getValorVenda().multiply(new BigDecimal(item.getQuantidade())) %></td></td>
+            <td>R$ <%= item.getValorVenda().multiply(new BigDecimal(item.getQuantidade())) %></td>
             <td class="">
                 <div class="d-flex justify-content-center align-items-center">
-                    <a data-toggle="collapse" href="#collapse<%=item.getId()%>" aria-expanded="false" aria-controls="collapseExample">
+                    <a data-item="<%=item.getId()%>" class="disabled" href="#">
                         <i class="fa-solid fa-pen-to-square text-primary" style="font-size: 20px;"></i>
                     </a>
                     <a href="#" onclick="setExcluirItem(<%=item.getId()%>)">
@@ -74,25 +91,6 @@
                 </div>
             </td>
         </tr>
-        <div class="collapse" id="collapse<%=item.getId()%>">
-            <form action="<%= CarrinhoURI.EDITAR_ITEM %>" method="post">
-                <input type="hidden" name="idItem" value="<%=item.getId()%>">
-                <div class="row">
-                    <div class="d-flex">
-                        <button type="button" class="quantity-down px-2" style="border: none; background: transparent;">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input onkeypress="return event.charCode >= 48 && event.charCode <= 57" type="number" class="quantity-input" value="<%=item.getQuantidade()%>" min="1" id="txtQtd" name="txtQtd">
-                        <button type="button" class="quantity-up px-2" style="border: none; background: transparent;">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-warning" name="operacao" value="Editar">Salvar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <%}}} %>
         </tbody>
         <tfoot>
@@ -107,7 +105,7 @@
         <a href="<%= EstoqueURI.LISTA_URI %>" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-b-green text-ednd">
             Continuar Comprando
         </a>
-        <a href="<%= EnderecoURI.SELECIONAR_URI %>" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-warning text-end <%if(carrinho.getItens().size() == 0){%>disabled<%}%>" name="operacao" value="Salvar">
+        <a href="<%= EnderecoURI.SELECIONAR_URI %>" style="font-size: 16px; font-weight: bold;" class="btn btn-lg btn-warning text-end <%if(carrinho.getItens().size() == 0){%>disabled<%}%>" id="FinalizarCompra">
             Finalizar Compra
         </a>
     </div>
@@ -125,43 +123,55 @@
         <%request.getSession().setAttribute("mensagem", null);%>
         <%}%>
 
-        const vMin = 1;
-        const vMax = 100;
+        // const vMin = 1;
+        // const vMax = 100;
+        //
+        // $('.quantity-input').on('blur', function() {
+        //     const valor = parseInt($(this).val());
+        //     if ($(this).val().trim() == '') {
+        //         $(this).val(1);
+        //         atualizarBotoes(1);
+        //     } else {
+        //         $(this).val(valor < vMin ? vMin : (valor > vMax ? vMax : valor));
+        //         atualizarBotoes(valor);
+        //     }
+        // });
+        //
+        // $('.quantity-up').on('click', function() {
+        //     atualizarQuantidade(1);
+        // });
+        //
+        // $('.quantity-down').on('click', function() {
+        //     atualizarQuantidade(-1);
+        // });
+        //
+        // function atualizarQuantidade(incremento) {
+        //     let valor = parseInt($('.quantity-input').val()) + incremento;
+        //     valor = Math.min(Math.max(valor, vMin), vMax);
+        //     $('.quantity-input').val(valor);
+        //     atualizarBotoes(valor);
+        // }
+        //
+        // function atualizarBotoes(valor) {
+        //     $('.quantity-up').prop('disabled', valor >= vMax);
+        //     $('.quantity-down').prop('disabled', valor <= vMin);
+        // }
+        //
+        // // Desabilitar botão "up" se a quantidade inicial for igual a vMax
+        // atualizarBotoes(parseInt($('.quantity-input').val()));
 
-        $('.quantity-input').on('blur', function() {
-            const valor = parseInt($(this).val());
-            if ($(this).val().trim() == '') {
-                $(this).val(1);
-                atualizarBotoes(1);
-            } else {
-                $(this).val(valor < vMin ? vMin : (valor > vMax ? vMax : valor));
-                atualizarBotoes(valor);
-            }
+        $('a[data-item]').on('click', function() {
+            const form = $('#formEdit'+($(this).data().item));
+            form.trigger('submit')
         });
-
-        $('.quantity-up').on('click', function() {
-            atualizarQuantidade(1);
-        });
-
-        $('.quantity-down').on('click', function() {
-            atualizarQuantidade(-1);
-        });
-
-        function atualizarQuantidade(incremento) {
-            let valor = parseInt($('.quantity-input').val()) + incremento;
-            valor = Math.min(Math.max(valor, vMin), vMax);
-            $('.quantity-input').val(valor);
-            atualizarBotoes(valor);
-        }
-
-        function atualizarBotoes(valor) {
-            $('.quantity-up').prop('disabled', valor >= vMax);
-            $('.quantity-down').prop('disabled', valor <= vMin);
-        }
-
-        // Desabilitar botão "up" se a quantidade inicial for igual a vMax
-        atualizarBotoes(parseInt($('.quantity-input').val()));
     });
+
+    function habilitarEdicao(e)
+    {
+        const item = $(e);
+        const data = item.data();
+        $('a[data-item="'+data.item+'"]').removeClass('disabled');
+    }
 
     function setExcluirItem(id) {
         const load = $("#loading");
